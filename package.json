@@ -1,0 +1,65 @@
+{
+  "name": "acp-website",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.24.0",
+  "engines": {
+    "node": "^25.0.0",
+    "pnpm": "^10.24.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@acp-website/web",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint --fix",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json,yaml,yml,css,scss}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,json,yaml,yml,css,scss}\"",
+    "prepare": "husky",
+    "precommit": "pnpm exec lint-staged"
+  },
+  "devDependencies": {
+    "@acp-website/prettier-config": "workspace:*",
+    "@changesets/cli": "^2.29.8",
+    "@eslint/js": "^9",
+    "@playwright/test": "^1.57.0",
+    "baseline-browser-mapping": "^2.9.11",
+    "eslint": "^9",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.7.2",
+    "prettier-plugin-jsdoc": "^1.3.0",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "turbo": "^2.6.1",
+    "typedoc": "^0.28",
+    "typescript": "^5",
+    "typescript-eslint": "^8"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "apps/**/*.{js,jsx,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "packages/**/*.{js,jsx,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "tooling/**/*.{js,jsx,mjs,cjs}": [
+      "prettier --write"
+    ],
+    "*.{md,json,css,scss}": [
+      "prettier --write"
+    ],
+    "*.{yaml,yml}": [
+      "prettier --write"
+    ]
+  }
+}

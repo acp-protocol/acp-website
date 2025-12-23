@@ -1,0 +1,21 @@
+{
+  "$schema": "https://acp-protocol.dev/schemas/v1/config.schema.json",
+  "version": "1.0.0",
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.mjs",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.py"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/target/**",
+    "**/.git/**",
+    "**/vendor/**",
+    "**/__pycache__/**"
+  ]
+}

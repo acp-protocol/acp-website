@@ -1,0 +1,10 @@
+/**
+ * App-specific Global Styles
+ *
+ * Imports the shared design system from @acp-website/tailwind-config.
+ * Add any app-specific overrides below the import.
+ */
+
+@import "@acp-website/tailwind-config/globals.css";
+
+/* App-specific styles can be added here */

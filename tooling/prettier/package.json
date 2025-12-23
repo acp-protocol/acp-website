@@ -1,0 +1,14 @@
+{
+  "name": "@acp-website/prettier-config",
+  "version": "0.1.0",
+  "description": "Prettier config for ACP Website with JSDoc support",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./config.js"
+  },
+  "dependencies": {
+    "prettier-plugin-jsdoc": "^1.3.0"
+  }
+}
+
