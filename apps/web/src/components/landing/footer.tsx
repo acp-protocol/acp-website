@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { GithubIcon } from "@/components/icons/github-icon";
 
 /**
@@ -11,10 +12,23 @@ export function Footer() {
     <footer className="border-t border-border bg-background py-12">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <span className="font-bold">ACP Protocol</span>
+          <div className="flex items-center gap-3">
+            <div className="relative h-8 w-32">
+              <Image
+                src="/ACP-Logo-Dark.svg"
+                alt="ACP Protocol"
+                fill
+                className="object-contain hidden dark:block"
+              />
+              <Image
+                src="/ACP-Logo-Light.svg"
+                alt="ACP Protocol"
+                fill
+                className="object-contain block dark:hidden"
+              />
+            </div>
             <span className="text-muted-foreground">
-              © {new Date().getFullYear()}
+              {new Date().getFullYear()}
             </span>
           </div>
 

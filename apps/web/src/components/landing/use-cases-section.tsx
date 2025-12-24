@@ -51,7 +51,7 @@ export function UseCasesSection() {
           {useCases.map((useCase) => (
             <Card
               key={useCase.title}
-              className="bg-gradient-to-b from-white via-gray-50 to-gray-100 rounded-xl shadow-[inset_0px_0px_0.5px_1px_rgba(255,255,255,0.9),inset_3px_5px_2px_-4.75px_white,inset_0px_4.5px_0.25px_-2.5px_rgba(255,255,255,0.8),inset_0px_-3px_3px_1px_rgba(0,0,0,0.03),0_4px_12px_rgba(0,0,0,0.08)] border border-white/50"
+              className="bg-card rounded-xl shadow-[inset_0px_0px_0.5px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.08)] dark:shadow-[inset_0px_0px_0.5px_1px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.3)] border border-border/50"
             >
               <CardHeader>
                 <div className="flex items-center gap-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { GithubIcon } from "@/components/icons/github-icon";
 import { Button } from "@acp-website/ui/components";
@@ -15,9 +16,22 @@ export function HeroSection() {
     <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            AI Context Protocol
-          </h1>
+          <div className="relative mx-auto h-32 w-full max-w-4xl sm:h-48 lg:h-64">
+            <Image
+              src="/Website-Main-Dark.svg"
+              alt="AI Context Protocol"
+              fill
+              className="object-contain hidden dark:block"
+              priority
+            />
+            <Image
+              src="/Website-Main-Light.svg"
+              alt="AI Context Protocol"
+              fill
+              className="object-contain block dark:hidden"
+              priority
+            />
+          </div>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
             A machine-readable context protocol for AI-assisted development.
             Enhance your codebase with structured comments that AI models

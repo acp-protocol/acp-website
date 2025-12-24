@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { GithubIcon } from "@/components/icons/github-icon";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Button } from "@acp-website/ui/components";
@@ -14,8 +15,23 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold">ACP Protocol</span>
+        <Link href="/" className="flex items-center">
+          <div className="relative h-12 w-48">
+            <Image
+              src="/ACP-Logo-Dark.svg"
+              alt="ACP Protocol"
+              fill
+              className="object-contain hidden dark:block"
+              priority
+            />
+            <Image
+              src="/ACP-Logo-Light.svg"
+              alt="ACP Protocol"
+              fill
+              className="object-contain block dark:hidden"
+              priority
+            />
+          </div>
         </Link>
 
         <nav className="flex items-center gap-6">
