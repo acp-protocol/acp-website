@@ -91,16 +91,16 @@ This means:
 
 #### Basic Lock
 
-```text
+```
 @acp:lock <level>
-```text
+```
 
 #### With Reason
 
-```text
+```
 @acp:lock <level>
 @acp:lock-reason <explanation>
-```text
+```
 
 ### 2.4 Lock Level Details
 
@@ -128,7 +128,7 @@ Code MUST NOT be modified under any circumstances.
  * @acp:lock-reason "Production database credentials"
  */
 const DB_CONFIG = { /* ... */ };
-```text
+```
 
 #### `restricted`
 
@@ -155,7 +155,7 @@ Limited modifications with explanation required. MUST get explicit user approval
 export function validateToken(token: string): boolean {
   // Security-critical code
 }
-```text
+```
 
 #### `approval-required`
 
@@ -232,16 +232,16 @@ Style constraints guide code formatting and conventions.
 
 #### Named Style Guide
 
-```text
+```
 @acp:style <guide-name>
-```text
+```
 
 #### With Custom Rules
 
-```text
+```
 @acp:style <guide-name>
 @acp:style-rules <rule1>, <rule2>, ...
-```text
+```
 
 ### 3.2 Built-in Style Guides
 
@@ -268,7 +268,7 @@ Style constraints guide code formatting and conventions.
  * @acp:style google-typescript
  * @acp:style-rules max-line-length=100, no-any
  */
-```text
+```
 
 ---
 
@@ -278,9 +278,9 @@ Behavior constraints modify how AI approaches code changes.
 
 ### 4.1 Behavior Annotation Syntax
 
-```text
+```
 @acp:behavior <approach>
-```text
+```
 
 ### 4.2 Behavior Approaches
 
@@ -295,7 +295,7 @@ Behavior constraints modify how AI approaches code changes.
 /**
  * @acp:behavior conservative
  */
-```text
+```
 
 ---
 
@@ -305,9 +305,9 @@ Quality constraints specify additional checks needed.
 
 ### 5.1 Quality Annotation Syntax
 
-```text
+```
 @acp:quality <requirement1>, <requirement2>
-```text
+```
 
 ### 5.2 Quality Requirements
 
@@ -322,7 +322,7 @@ Quality constraints specify additional checks needed.
 /**
  * @acp:quality security-review, performance-test
  */
-```text
+```
 
 ---
 
@@ -340,7 +340,7 @@ Implementations MAY provide optional constraint violation logging.
     "audit_file": ".acp.violations.log"
   }
 }
-```text
+```
 
 **Log Format** (if enabled):
 ```json
@@ -352,7 +352,7 @@ Implementations MAY provide optional constraint violation logging.
   "user_override": false,
   "context": "AI attempted modification of frozen file"
 }
-```text
+```
 
 Implementations MAY provide `--audit` flag to enable tracking for a session.
 
@@ -375,9 +375,9 @@ When constraints exist at multiple precedence levels, they merge according to th
 - **Result:** `restricted` (most restrictive)
 
 **Precedence** (most to least restrictive):
-```text
+```
 frozen > restricted > approval-required > tests-required > docs-required > normal > experimental
-```text
+```
 
 ### 7.2 Style Guides
 
@@ -441,7 +441,7 @@ export class AuthenticationService {
     // Implementation
   }
 }
-```text
+```
 
 ### 8.2 Generated Code
 
@@ -458,7 +458,7 @@ export interface User {
   email: string;
   // ...
 }
-```text
+```
 
 ### 8.3 Public API
 
@@ -475,7 +475,7 @@ export interface User {
 export interface ApiResponse<T> {
   // Public API contract
 }
-```text
+```
 
 ---
 

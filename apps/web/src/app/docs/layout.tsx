@@ -17,8 +17,8 @@ export default async function DocsLayout({
       {/* Fixed left sidebar */}
       <DocsSidebar navigation={navigation} />
 
-      {/* Main content area - offset by sidebar width */}
-      <div className="lg:pl-64">
+      {/* Main content area - offset by sidebar width and TOC width */}
+      <div className="lg:pl-64 xl:pr-64">
         <main className="min-h-screen">
           {children}
         </main>

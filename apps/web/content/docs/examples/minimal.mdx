@@ -34,7 +34,7 @@ A simple TypeScript file with basic annotations:
 export function main(): void {
   console.log("Hello, ACP!");
 }
-```text
+```
 
 ---
 
@@ -99,7 +99,7 @@ Running `acp index` produces this minimal cache:
     "by_lock_level": {}
   }
 }
-```text
+```
 
 ---
 
@@ -116,7 +116,7 @@ export function add(a: number, b: number): number {
 export function multiply(a: number, b: number): number {
   return a * b;
 }
-```text
+```
 
 **Generated cache entry:**
 ```json
@@ -166,7 +166,7 @@ export function multiply(a: number, b: number): number {
     }
   }
 }
-```text
+```
 
 ---
 
@@ -186,7 +186,7 @@ jq '.symbols | keys' .acp.cache.json
 
 # Get stats
 jq '.stats' .acp.cache.json
-```text
+```
 
 ---
 
@@ -204,7 +204,7 @@ Add your first constraint to protect critical code:
 
 export const DATABASE_URL = process.env.DATABASE_URL;
 export const API_KEY = process.env.API_KEY;
-```text
+```
 
 Now queries can check constraints:
 
@@ -216,7 +216,7 @@ jq '.constraints.by_file["src/config.ts"].lock_level' .acp.cache.json
 # List all frozen files
 jq '.constraints.by_lock_level.frozen' .acp.cache.json
 # Output: ["src/config.ts"]
-```text
+```
 
 ---
 
@@ -235,16 +235,16 @@ From this minimal setup, you can:
 
 Minimal project structure:
 
-```text
+```
 my-project/
 ├── src/
 │   └── app.ts              # Source with optional annotations
 └── .acp.cache.json         # Generated (add to .gitignore)
-```text
+```
 
 With optional files:
 
-```text
+```
 my-project/
 ├── src/
 │   ├── app.ts
@@ -252,7 +252,7 @@ my-project/
 ├── .acp.cache.json         # Generated
 ├── .acp.config.json        # Optional: configuration
 └── .acp.vars.json          # Optional: variables (generated)
-```text
+```
 
 ---
 
@@ -270,7 +270,7 @@ acp index --vars
 
 # Validate cache
 acp validate .acp.cache.json
-```text
+```
 
 ---
 

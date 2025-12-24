@@ -53,7 +53,7 @@ export default async function DocPage({ params }: PageProps) {
       )}
 
       {/* Main content - centered with max-width */}
-      <div className="mx-auto max-w-[850px] px-8 py-12 xl:mr-64">
+      <div className="mx-auto max-w-[850px] px-8 py-12">
         <article>
           <DocsBreadcrumbs items={breadcrumbs} />
 

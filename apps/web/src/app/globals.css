@@ -8,3 +8,33 @@
 @import "@acp-website/tailwind-config/globals.css";
 
 /* App-specific styles can be added here */
+
+/* rehype-pretty-code styles */
+[data-rehype-pretty-code-figure] {
+  @apply my-4;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  @apply overflow-x-auto rounded-lg border border-border bg-muted/50 p-4;
+}
+
+[data-rehype-pretty-code-figure] code {
+  @apply grid font-mono text-sm;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  @apply px-4 -mx-4;
+}
+
+/* Light/dark theme switching for code blocks */
+[data-rehype-pretty-code-figure] code[data-theme*=" "],
+[data-rehype-pretty-code-figure] code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.dark [data-rehype-pretty-code-figure] code[data-theme*=" "],
+.dark [data-rehype-pretty-code-figure] code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}

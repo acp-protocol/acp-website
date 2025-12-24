@@ -56,16 +56,16 @@ ACP addresses three core needs:
 Help AI systems find relevant code quickly.
 
 **Without ACP:**
-```text
+```
 User: "Fix the authentication bug"
 AI: *searches through hundreds of files trying to find auth-related code*
-```text
+```
 
 **With ACP:**
-```text
+```
 User: "Fix the authentication bug"
 AI: *queries cache for authentication domain, immediately finds relevant files and symbols*
-```text
+```
 
 The cache file (`.acp.cache.json`) provides pre-indexed access to:
 - File and module organization
@@ -81,7 +81,7 @@ Let developers specify how code should be modified.
 ```javascript
 // This function is critical for security - don't change it!
 function validateToken(token) { ... }
-```text
+```
 
 **With ACP:**
 ```javascript
@@ -91,7 +91,7 @@ function validateToken(token) { ... }
  * @acp:quality security-review
  */
 function validateToken(token) { ... }
-```text
+```
 
 Constraints communicate:
 - **Lock levels** — How freely code can be modified
@@ -104,17 +104,17 @@ Constraints communicate:
 Minimize context sent to AI systems.
 
 **Without ACP (high token cost):**
-```text
+```
 Please review the validateSession function in src/auth/session.ts
 (lines 45-89) which validates JWT tokens by checking the signature
 against our secret key, verifying expiration, and returning the
 decoded session data or null if invalid...
-```text
+```
 
 **With ACP (low token cost):**
-```text
+```
 Please review $SYM_VALIDATE_SESSION
-```text
+```
 
 Variables expand to full context automatically, reducing prompt size by 50-90% while maintaining complete information.
 
@@ -136,7 +136,7 @@ Structured metadata embedded in source code comments.
  * @acp:summary "Handles all payment transactions via Stripe"
  */
 export class PaymentService { ... }
-```text
+```
 
 Annotations are:
 - **Language-agnostic** — Same syntax works in any language with comments
@@ -169,7 +169,7 @@ Token-efficient references to code elements.
     "description": "Validates JWT tokens and returns session"
   }
 }
-```text
+```
 
 Variable types:
 - `SYM_*` — Symbol references (functions, classes, methods)
@@ -191,7 +191,7 @@ Pre-computed codebase index for efficient querying.
   "domains": { ... },
   "constraints": { ... }
 }
-```text
+```
 
 The cache enables:
 - **Fast queries** — Find symbols, files, domains without parsing
@@ -214,7 +214,7 @@ jq '.symbols | to_entries | map(select(.value.type == "function"))' .acp.cache.j
 # MCP tools (for AI assistants)
 acp_query(type="domain", name="authentication")
 acp_constraints(file="src/auth/session.ts")
-```text
+```
 
 ---
 
@@ -312,7 +312,7 @@ ACP follows established conventions.
 
 ### 6.1 Workflow Overview
 
-```text
+```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │   Your Code     │     │   ACP CLI       │     │   AI Tools      │
 │                 │     │                 │     │                 │
@@ -320,7 +320,7 @@ ACP follows established conventions.
 │  @acp:lock Y    │     │                 │     │  Respect rules  │
 │  @acp:summary Z │     │  .acp.cache.json│     │  Better context │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
-```text
+```
 
 1. **Annotate** — Add `@acp:` annotations in code comments
 2. **Index** — Run `acp index` to generate the cache
@@ -347,7 +347,7 @@ ACP follows established conventions.
 export function validateSession(token: string): Session | null {
   // Implementation...
 }
-```text
+```
 
 **Step 2: Generate cache**
 
@@ -355,21 +355,21 @@ export function validateSession(token: string): Session | null {
 $ acp index
 Indexing... done
 Generated .acp.cache.json (127 files, 523 symbols)
-```text
+```
 
 **Step 3: AI queries before modification**
 
-```text
+```
 AI: Before modifying src/auth/session.ts, let me check constraints...
     [calls acp_constraints(file="src/auth/session.ts")]
     
     This file has lock level "restricted" with reason "Security critical - 
     requires review". I should explain proposed changes before making them.
-```text
+```
 
 **Step 4: AI respects constraints**
 
-```text
+```
 AI: I found the issue in validateSession. This function is marked as 
     restricted, so let me explain what I'd like to change:
     
@@ -377,7 +377,7 @@ AI: I found the issue in validateSession. This function is marked as
     Proposed: Move expiration check before signature validation for efficiency
     
     Would you like me to proceed with this change?
-```text
+```
 
 ---
 
@@ -477,9 +477,9 @@ Tools claiming ACP conformance:
 - SHOULD document any limitations or extensions
 
 **Example:**
-```text
+```
 ACP CLI v1.0.0 - Level 3 Conformant
-```text
+```
 
 ---
 
@@ -493,14 +493,14 @@ cargo install acp-cli
 
 # Or via npm
 npm install -g @acp/cli
-```text
+```
 
 ### A.2 Initialize Project
 
 ```bash
 cd your-project
 acp init
-```text
+```
 
 Creates `.acp.config.json` with sensible defaults.
 
@@ -514,13 +514,13 @@ Creates `.acp.config.json` with sensible defaults.
 def validate_token(token: str) -> bool:
     """Validates JWT tokens - security critical."""
     ...
-```text
+```
 
 ### A.4 Generate Cache
 
 ```bash
 acp index
-```text
+```
 
 Creates `.acp.cache.json` with indexed codebase.
 
@@ -535,7 +535,7 @@ acp constraints src/auth/session.py
 
 # Search symbols
 acp query '.symbols | to_entries | map(select(.key | contains("validate")))'
-```text
+```
 
 ---
 

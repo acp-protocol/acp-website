@@ -45,7 +45,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### 2.1 Formal Grammar (EBNF)
 
-```text
+```
 (* ACP Annotation Grammar *)
 
 annotation     = "@acp:" , namespace , [ ":" , sub_namespace ] , [ whitespace , value ] ;
@@ -67,7 +67,7 @@ letter         = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" ;
 digit          = "0" | "1" | ... | "9" ;
 whitespace     = " " | "\t" ;
 any_char       = ? any Unicode character ? ;
-```text
+```
 
 ### 2.2 Syntax Components
 
@@ -75,12 +75,12 @@ any_char       = ? any Unicode character ? ;
 
 All ACP annotations MUST begin with the literal string `@acp:`.
 
-```text
+```
 @acp:                    ✓ Valid prefix
 @ACP:                    ✗ Invalid (case-sensitive)
 @ acp:                   ✗ Invalid (no space allowed)
 @acp :                   ✗ Invalid (no space allowed)
-```text
+```
 
 #### 2.2.2 Namespace
 
@@ -91,37 +91,37 @@ The namespace identifies the category of the annotation.
 - MUST be lowercase
 - SHOULD be a single word when possible
 
-```text
+```
 @acp:lock                ✓ Valid
 @acp:lock-reason         ✓ Valid (with hyphen)
 @acp:123invalid          ✗ Invalid (starts with digit)
 @acp:LOCK                ✗ Invalid (uppercase)
-```text
+```
 
 #### 2.2.3 Sub-namespace (Optional)
 
 An optional secondary identifier following a colon.
 
-```text
+```
 @acp:lock restricted     ✓ Namespace only
 @acp:lock:level          ✓ With sub-namespace (future use)
-```text
+```
 
 #### 2.2.4 Value
 
 The value following the annotation name.
 
 **Unquoted values**: Single words or simple values
-```text
+```
 @acp:lock restricted
 @acp:domain authentication
-```text
+```
 
 **Quoted values**: Values containing spaces or special characters
-```text
+```
 @acp:summary "Handles user authentication"
 @acp:lock-reason "Legacy code, do not modify"
-```text
+```
 
 ### 2.3 Whitespace Rules
 
@@ -140,7 +140,7 @@ Annotations MAY span multiple lines using continuation:
  * summary that spans multiple
  * lines and should be combined
  */
-```text
+```
 
 The continuation is recognized when subsequent comment lines continue the annotation without a new `@acp:` prefix.
 
@@ -162,13 +162,13 @@ ACP annotations MUST appear within documentation comments. The format varies by 
  * @acp:stability stable
  */
 export class AuthService { }
-```text
+```
 
 **Single-line documentation comments**:
 ```javascript
 /// @acp:lock frozen
 function criticalFunction() { }
-```text
+```
 
 #### 3.1.2 Python
 
@@ -181,14 +181,14 @@ function criticalFunction() { }
 """
 class AuthService:
     pass
-```text
+```
 
 **Hash comments**:
 ```python
 # @acp:lock frozen
 def critical_function():
     pass
-```text
+```
 
 #### 3.1.3 Rust
 
@@ -199,7 +199,7 @@ def critical_function():
 
 /// @acp:lock frozen
 fn critical_function() { }
-```text
+```
 
 #### 3.1.4 Go
 
@@ -210,7 +210,7 @@ fn critical_function() { }
 
 // @acp:lock frozen
 func CriticalFunction() { }
-```text
+```
 
 #### 3.1.5 Ruby
 
@@ -221,7 +221,7 @@ func CriticalFunction() { }
 # @acp:lock frozen
 def critical_function
 end
-```text
+```
 
 ### 3.2 Placement Rules
 
@@ -237,7 +237,7 @@ File-level annotations MUST appear at the top of the file, before any code:
  */
 
 import { something } from 'somewhere';
-```text
+```
 
 #### 3.2.2 Symbol-Level Annotations
 
@@ -249,7 +249,7 @@ Symbol-level annotations MUST appear immediately before the symbol they annotate
  * @acp:lock restricted
  */
 function validateSession(token) { }
-```text
+```
 
 #### 3.2.3 Inline Annotations
 
@@ -257,7 +257,7 @@ Inline annotations appear on the same line as code (limited use):
 
 ```javascript
 const API_KEY = "xxx"; // @acp:sensitive
-```text
+```
 
 ### 3.3 Scope Determination
 
@@ -352,7 +352,7 @@ Human-readable name for the file/module.
 /**
  * @acp:module "User Authentication Service"
  */
-```text
+```
 
 **Behavior**:
 - Value SHOULD be a quoted string
@@ -372,7 +372,7 @@ Brief description of the file or symbol.
 /**
  * @acp:summary "Handles JWT validation and session management"
  */
-```text
+```
 
 **Behavior**:
 - Value SHOULD be under 200 characters
@@ -394,7 +394,7 @@ Logical domain classification.
  * @acp:domain authentication
  * @acp:domain security
  */
-```text
+```
 
 **Behavior**:
 - Multiple domains MAY be specified
@@ -415,7 +415,7 @@ Architectural layer classification.
 /**
  * @acp:layer service
  */
-```text
+```
 
 **Behavior**:
 - Standard layers: `handler`, `controller`, `service`, `repository`, `model`, `utility`, `config`
@@ -442,7 +442,7 @@ Stability indicator for the module.
 /**
  * @acp:stability experimental
  */
-```text
+```
 
 ---
 
@@ -460,7 +460,7 @@ Mark as deprecated with migration info.
  * @acp:deprecated "Use validateSessionV2 instead"
  */
 function validateSession(token) { }
-```text
+```
 
 **Behavior**:
 - AI SHOULD warn when this symbol is used
@@ -500,11 +500,11 @@ For each documentation comment:
 
 Consecutive lines with same namespace are treated as single annotation:
 
-```text
+```
 @acp:summary This is a long
 summary that spans multiple
 lines and should be combined
-```text
+```
 
 Results in: `@acp:summary "This is a long summary that spans multiple lines and should be combined"`
 
@@ -525,12 +525,12 @@ Results in: `@acp:summary "This is a long summary that spans multiple lines and 
 **Main annotation pattern**:
 ```regex
 @acp:([a-z][a-z0-9-]*)(?::([a-z][a-z0-9-]*))?\s*(.+)?$
-```text
+```
 
 **Quoted string pattern**:
 ```regex
 "(?:[^"\\]|\\.)*"
-```text
+```
 
 ### 6.3 Conflict Resolution
 
@@ -586,7 +586,7 @@ When multiple annotations of the same type appear:
   "snippet": "@acp:lock frozen extra-text",
   "suggestion": "Remove trailing text or use lock-reason"
 }
-```text
+```
 
 See the main specification Section 11 (Error Handling) for complete error handling details.
 
@@ -630,7 +630,7 @@ export class SessionService {
     return this.validateSession(token);
   }
 }
-```text
+```
 
 ### 8.2 Multi-Domain Example
 
@@ -657,7 +657,7 @@ class PaymentService:
         @acp:lock-reason "Payment logic validated by compliance team"
         """
         pass
-```text
+```
 
 ### 8.3 Extension Example
 
@@ -669,7 +669,7 @@ class PaymentService:
  * @acp:x-mycompany:compliance-level high
  * @acp:x-mycompany:audit-required true
  */
-```text
+```
 
 ---
 

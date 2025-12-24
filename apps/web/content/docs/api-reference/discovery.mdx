@@ -47,7 +47,7 @@ From main specification Section 8.1 (Lines 1056-1067):
 
 ### 2.1 Basic Algorithm
 
-```text
+```
 FUNCTION discoverFiles(projectRoot, config):
   1. Start from project root (containing .acp.config.json or first .acp.cache.json)
   2. Recursively scan directories
@@ -59,7 +59,7 @@ FUNCTION discoverFiles(projectRoot, config):
   5. Build cache structure
 
   RETURN list of files to process
-```text
+```
 
 ### 2.2 Step-by-Step Process
 
@@ -82,7 +82,7 @@ If no config file, use defaults.
 #### Step 3: Scan Directories
 
 Starting from project root:
-```text
+```
 FOR each directory in tree:
   IF directory matches exclude pattern:
     Skip entire directory
@@ -90,7 +90,7 @@ FOR each directory in tree:
     FOR each file in directory:
       IF file matches include AND NOT matches exclude:
         Add to file list
-```text
+```
 
 #### Step 4: Process Files
 
@@ -129,7 +129,7 @@ From main specification Section 8.2 (Lines 1068-1085):
     "**/*.spec.*"
   ]
 }
-```text
+```
 
 ### 3.2 Pattern Syntax
 
@@ -160,7 +160,7 @@ Add to `.acp.config.json`:
     "third-party/**"
   ]
 }
-```text
+```
 
 ### 3.4 Precedence
 
@@ -195,7 +195,7 @@ From main specification Section 8.3 (Lines 1086-1159):
     }
   }
 }
-```text
+```
 
 **Import Analysis:**
 - If file imports primarily from one domain, classify in that domain
@@ -209,7 +209,7 @@ import { createSession } from '../auth/session';
 import { logAction } from '../utils/logger';
 
 // 2 of 3 imports from auth/ -> classify as "authentication" domain
-```text
+```
 
 ### 4.2 Layer Detection
 
@@ -232,14 +232,14 @@ import { logAction } from '../utils/logger';
 | `**/utils/**`, `**/helpers/**` | utility |
 
 **Example:**
-```text
+```
 src/
   handlers/    → layer: handler
   services/    → layer: service
   repositories/→ layer: repository
   models/      → layer: model
   utils/       → layer: utility
-```text
+```
 
 ### 4.3 Call Graph Construction
 
@@ -266,7 +266,7 @@ src/
     "exclude_patterns": ["**/test/**"]
   }
 }
-```text
+```
 
 **Example:**
 ```typescript
@@ -280,7 +280,7 @@ function validateUser(user) {
 function dynamicCall(fnName) {
   this[fnName]();  // ✗ Dynamic - not detected
 }
-```text
+```
 
 ---
 
@@ -326,7 +326,7 @@ class MyClass { };  // Detected as cpp
 // Otherwise:
 #include <stdio.h>
 struct Data { };    // Detected as c
-```text
+```
 
 ### 5.3 Unknown Extensions
 
@@ -337,10 +337,10 @@ struct Data { };    // Detected as c
 - Error in strict mode
 
 **Example:**
-```text
+```
 WARNING: Unknown file extension .xyz for file: src/custom.xyz
   Skipping file (use strictness: strict to error instead)
-```text
+```
 
 ---
 
@@ -375,7 +375,7 @@ Limits SHOULD be configurable in `.acp.config.json`:
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 ### 6.3 Behavior When Exceeded
 
@@ -389,10 +389,10 @@ Limits SHOULD be configurable in `.acp.config.json`:
 - Abort processing
 
 **Example:**
-```text
+```
 WARNING: File src/generated/huge.ts exceeds size limit (15MB > 10MB)
   Skipping file. To include, increase limits.max_file_size_mb in config.
-```text
+```
 
 ### 6.4 Large Projects
 
@@ -414,13 +414,13 @@ For projects exceeding limits, consider:
     "max_cache_size_mb": 500
   }
 }
-```text
+```
 
 ---
 
 ## Appendix A: Complete Discovery Example
 
-```text
+```
 1. Find project root:
    /home/user/my-project/ (contains .acp.config.json)
 
@@ -457,7 +457,7 @@ For projects exceeding limits, consider:
    - Call graph: Forward and reverse maps
    - Constraints: Index by file and lock level
    - Stats: { files: 2, symbols: 15, lines: 450 }
-```text
+```
 
 ---
 

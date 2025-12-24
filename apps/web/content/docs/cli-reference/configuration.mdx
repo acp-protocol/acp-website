@@ -76,7 +76,7 @@ The config file MUST conform to the JSON Schema at:
   "call_graph": { },
   "limits": { }
 }
-```text
+```
 
 ---
 
@@ -90,7 +90,7 @@ ACP specification version this config conforms to.
 {
   "version": "1.0.0"
 }
-```text
+```
 
 - Type: `string`
 - Format: Semantic version
@@ -104,7 +104,7 @@ Glob patterns to include in indexing.
 {
   "include": ["src/**/*.ts", "lib/**/*.js"]
 }
-```text
+```
 
 - Type: `array[string]`
 - Default: `["**/*"]` (all files)
@@ -131,7 +131,7 @@ Glob patterns to exclude from indexing.
     "coverage/**"
   ]
 }
-```text
+```
 
 - Type: `array[string]`
 - Default: Common build/test directories
@@ -165,7 +165,7 @@ Controls how ACP handles errors during indexing and operations.
     "auto_correct": false
   }
 }
-```text
+```
 
 ### 4.2 Strictness Mode
 
@@ -194,7 +194,7 @@ Controls error handling behavior.
     "strictness": "strict"
   }
 }
-```text
+```
 
 ### 4.3 Max Errors
 
@@ -212,7 +212,7 @@ Maximum number of errors before aborting (permissive mode only).
     "max_errors": 50
   }
 }
-```text
+```
 
 ### 4.4 Auto-correct
 
@@ -229,7 +229,7 @@ Whether to automatically fix common errors.
     "auto_correct": true
   }
 }
-```text
+```
 
 ---
 
@@ -251,7 +251,7 @@ Configure default constraints and violation tracking.
     "audit_file": ".acp.violations.log"
   }
 }
-```text
+```
 
 ### 5.2 Default Constraints
 
@@ -267,7 +267,7 @@ Set project-wide default constraint values.
     }
   }
 }
-```text
+```
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -286,7 +286,7 @@ Enable tracking of constraint violations.
     "audit_file": ".acp.violations.log"
   }
 }
-```text
+```
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -319,7 +319,7 @@ Define domain patterns for automatic classification.
     }
   }
 }
-```text
+```
 
 ### 6.2 Domain Entry
 
@@ -342,7 +342,7 @@ Each domain has:
     }
   }
 }
-```text
+```
 
 ---
 
@@ -362,14 +362,14 @@ Configure call graph generation.
     "exclude_patterns": ["**/test/**"]
   }
 }
-```text
+```
 
 ### 7.2 Fields
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `include_stdlib` | boolean | false | Include standard library calls |
-| `max_depth` | integer\|null | null | Maximum call depth (null = unlimited) |
+| `max_depth` | integer|null | null | Maximum call depth (null = unlimited) |
 | `exclude_patterns` | array[string] | [] | Patterns to exclude from graph |
 
 **Example:**
@@ -381,7 +381,7 @@ Configure call graph generation.
     "exclude_patterns": ["**/test/**", "**/mocks/**"]
   }
 }
-```text
+```
 
 ---
 
@@ -402,7 +402,7 @@ Configure implementation limits.
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 ### 8.2 Limit Fields
 
@@ -432,7 +432,7 @@ Configure implementation limits.
 {
   "version": "1.0.0"
 }
-```text
+```
 
 ### 9.2 TypeScript Project
 
@@ -465,7 +465,7 @@ Configure implementation limits.
     }
   }
 }
-```text
+```
 
 ### 9.3 Strict Mode for CI/CD
 
@@ -481,7 +481,7 @@ Configure implementation limits.
     "audit_file": ".acp.violations.log"
   }
 }
-```text
+```
 
 ### 9.4 Large Monorepo
 
@@ -504,7 +504,7 @@ Configure implementation limits.
     "exclude_patterns": ["**/test/**", "**/__mocks__/**"]
   }
 }
-```text
+```
 
 ---
 
@@ -559,7 +559,7 @@ Configure implementation limits.
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 ---
 

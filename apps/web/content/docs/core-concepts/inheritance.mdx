@@ -87,9 +87,9 @@ When multiple lock levels apply, the most restrictive level takes precedence.
 - **Result:** `restricted` (most restrictive)
 
 **Precedence** (most to least restrictive):
-```text
+```
 frozen > restricted > approval-required > tests-required > docs-required > normal > experimental
-```text
+```
 
 **Complete Example:**
 ```json
@@ -101,7 +101,7 @@ frozen > restricted > approval-required > tests-required > docs-required > norma
     }
   }
 }
-```text
+```
 
 ```javascript
 // File annotation
@@ -119,7 +119,7 @@ function criticalFunction() { }
  * No additional constraints - inherits file-level restricted
  */
 function normalFunction() { }
-```text
+```
 
 ### 3.2 Style Guides
 
@@ -149,7 +149,7 @@ The base style guide comes from the most specific level, but custom rules accumu
     }
   }
 }
-```text
+```
 
 ```javascript
 // Directory level (conceptual)
@@ -162,7 +162,7 @@ The base style guide comes from the most specific level, but custom rules accumu
  * @acp:style-rules indent=2, no-any
  */
 // Result: google-typescript base + max-line-length=100 + indent=2 + no-any
-```text
+```
 
 ### 3.3 Behavior Constraints
 
@@ -187,14 +187,14 @@ Behavior constraints do not accumulate. The most specific level completely overr
     }
   }
 }
-```text
+```
 
 ```javascript
 // File level
 /**
  * @acp:behavior aggressive  // Completely overrides project default
  */
-```text
+```
 
 ### 3.4 Quality Requirements
 
@@ -219,7 +219,7 @@ Quality requirements from all levels are combined. All requirements must be met.
     }
   }
 }
-```text
+```
 
 ```javascript
 // File level
@@ -227,7 +227,7 @@ Quality requirements from all levels are combined. All requirements must be met.
  * @acp:quality security-review, performance-test
  */
 // Result: tests-required + security-review + performance-test
-```text
+```
 
 ### 3.5 Equal Specificity
 
@@ -248,7 +248,7 @@ If two constraints at the **same precedence level** conflict:
 /**
  * @acp:lock normal
  */
-```text
+```
 **Result:** `normal` (last wins)
 
 **Recommendation:** Avoid this. Use linter to detect conflicts.
@@ -296,7 +296,7 @@ export class SessionService {
     // This function has lock:restricted (inherited from file)
   }
 }
-```text
+```
 
 ### 4.2 Style Guide Accumulation
 
@@ -326,7 +326,7 @@ export async function getUsers() { // Must be async (from dir rules)
   // Cannot use 'any' type (from file rules)
   // Max 4 parameters (from dir rules)
 }
-```text
+```
 
 ### 4.3 Conflict Resolution
 
@@ -341,7 +341,7 @@ export async function getUsers() { // Must be async (from dir rules)
  * @acp:lock normal
  */
 function dangerousOperation() { }
-```text
+```
 
 **Resolution:**
 - File level: `lock=restricted`, `behavior=conservative`
@@ -362,7 +362,7 @@ function dangerousOperation() { }
     }
   }
 }
-```text
+```
 
 ```typescript
 // File annotation
@@ -377,7 +377,7 @@ export class PaymentService {
     // - performance-test (from file)
   }
 }
-```text
+```
 
 ### 4.5 Complex Scenario
 
@@ -394,7 +394,7 @@ export class PaymentService {
     }
   }
 }
-```text
+```
 
 ```typescript
 // src/auth/session.ts
@@ -433,7 +433,7 @@ export class SessionService {
     //          + security-review (file)
   }
 }
-```text
+```
 
 ---
 
@@ -459,10 +459,10 @@ export class SessionService {
 ### Lock Level Restrictiveness
 
 Most to least restrictive:
-```text
+```
 frozen > restricted > approval-required > tests-required >
 docs-required > normal > experimental
-```text
+```
 
 ---
 

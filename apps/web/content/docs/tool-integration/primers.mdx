@@ -28,7 +28,7 @@ This chapter specifies how ACP context is automatically distributed to AI develo
 
 ### 1.2 Architecture
 
-```text
+```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                          Primer System                                  │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -61,7 +61,7 @@ This chapter specifies how ACP context is automatically distributed to AI develo
 │  AGENTS.md, etc.             • User never copies/pastes                 │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
-```text
+```
 
 ---
 
@@ -143,7 +143,7 @@ Each section in the primer library has:
     "json": null
   }
 }
-```text
+```
 
 ### 3.2 Multi-Dimensional Value Scoring
 
@@ -157,10 +157,10 @@ Each section is scored across four dimensions:
 | **Base**       | Baseline importance         | 1.0              |
 
 Final score calculation:
-```text
+```
 score = (safety × w_safety) + (efficiency × w_efficiency) + 
         (accuracy × w_accuracy) + (base × w_base)
-```text
+```
 
 ### 3.3 Dynamic Value Modifiers
 
@@ -182,11 +182,11 @@ Section values adjust based on project state:
     }
   ]
 }
-```text
+```
 
 ### 3.4 Selection Algorithm
 
-```text
+```
 function selectSections(budget, projectState, capabilities, weights):
     selected = []
     remaining = budget
@@ -227,7 +227,7 @@ function selectSections(budget, projectState, capabilities, weights):
             remaining -= section.tokens
     
     return selected
-```text
+```
 
 ### 3.5 Section Categories
 
@@ -263,7 +263,7 @@ Synchronizes ACP context to all detected tool configuration files.
 
 ```bash
 acp sync [options]
-```text
+```
 
 **Options**:
 
@@ -284,19 +284,19 @@ acp init
 # Creates .acp.config.json
 # Runs acp index
 # Runs acp sync  ← automatic
-```text
+```
 
 **`acp index`**: Accepts `--sync` flag
 ```bash
 acp index --sync
 # Equivalent to: acp index && acp sync
-```text
+```
 
 **`acp watch`**: Auto-syncs on cache changes
 ```bash
 acp watch --sync
 # Re-syncs when cache updates
-```text
+```
 
 ---
 
@@ -308,7 +308,7 @@ Generates context primers with configurable budget and weights.
 
 ```bash
 acp primer [options]
-```text
+```
 
 **Key Options**:
 
@@ -351,7 +351,7 @@ $ acp primer --budget 500 --preview
 │  TOTAL                                    355             USED          │
 │  Remaining: 145 tokens                                                  │
 └─────────────────────────────────────────────────────────────────────────┘
-```text
+```
 
 ---
 
@@ -388,7 +388,7 @@ In `.acp/acp.sync.json` or as `sync` section in `.acp.config.json`:
     }
   }
 }
-```text
+```
 
 ### 6.2 Per-Tool Primer Configuration
 
@@ -432,7 +432,7 @@ Projects can extend the default primer library via `.acp/primer.json`:
     "weights": { "safety": 2.0, "efficiency": 1.0, "accuracy": 1.5, "base": 0.8 }
   }
 }
-```text
+```
 
 ---
 
@@ -455,7 +455,7 @@ interface ToolAdapter {
     validate(content: string): Result<void, ValidationError>;
     merge(existing: string, generated: string): string;
 }
-```text
+```
 
 ### 7.2 Built-in Adapters
 
@@ -506,7 +506,7 @@ Define custom adapters in sync configuration:
     }
   ]
 }
-```text
+```
 
 ---
 
@@ -520,7 +520,7 @@ ACP-generated content is clearly delineated:
 {/*  BEGIN ACP GENERATED CONTENT - DO NOT EDIT  */}
 [generated primer content]
 {/*  END ACP GENERATED CONTENT  */}
-```text
+```
 
 ### 8.2 Merge Strategies
 
@@ -551,7 +551,7 @@ acp knowledge install
 
 # Query ACP documentation
 acp knowledge "how do I check constraints"
-```text
+```
 
 ### 9.2 Distribution
 
@@ -566,7 +566,7 @@ npm install -g @acp-protocol/cli
 npm install -g @acp-protocol/cli @acp-protocol/knowledge
 # OR
 acp knowledge install
-```text
+```
 
 ### 9.3 Bootstrap Integration
 
@@ -577,7 +577,7 @@ The primer includes self-expansion sections that teach the AI to query for more 
   "id": "acp-self-expand",
   "template": "For more context: `acp primer --budget N` or `acp knowledge \"question\"`"
 }
-```text
+```
 
 ---
 
@@ -624,7 +624,7 @@ acp init
 # - AGENTS.md (always)
 
 # User opens any AI tool - context is already there
-```text
+```
 
 ### 11.2 Custom Weights
 
@@ -638,7 +638,7 @@ acp sync --primer-preset safe
     "weights": { "safety": 3.0, "efficiency": 0.5 }
   }
 }
-```text
+```
 
 ### 11.3 Budget Analysis
 
@@ -648,7 +648,7 @@ acp primer --compare 250,500,1000,2000
 
 # Preview specific budget
 acp primer --budget 500 --preview --tool cursor
-```text
+```
 
 ---
 

@@ -64,10 +64,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 | Codebase Size | Typical Cache Size |
 |---------------|-------------------|
-| Small (\<100 files) | \<100 KB |
+| Small (under 100 files) | under 100 KB |
 | Medium (100-1000 files) | 100 KB - 1 MB |
 | Large (1000-10000 files) | 1 MB - 10 MB |
-| Very Large (>10000 files) | Consider splitting |
+| Very Large (over 10000 files) | Consider splitting |
 
 ### 2.3 Schema
 
@@ -350,7 +350,7 @@ The `symbols` object maps qualified symbol names to symbol entry objects.
 
 Qualified names MUST follow this format:
 
-```text
+```
 {relative_path}:{qualified_symbol}
 ```
 
@@ -556,7 +556,7 @@ See [Constraint System Specification](constraints.md) for detailed constraint de
 
 ### 9.1 Generation Algorithm
 
-```text
+```
 FUNCTION generateCache(projectRoot, config):
     cache = initializeCache(projectRoot, config)
     files = discoverFiles(projectRoot, config)

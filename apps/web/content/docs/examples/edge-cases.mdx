@@ -27,7 +27,7 @@ const message = `
 `;
 
 const regex = /@acp:lock frozen/;  // Should be IGNORED
-```text
+```
 
 **Rule:** Parsers MUST use language-aware parsing to detect string contexts.
 
@@ -43,7 +43,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  */
 
 /* @acp:lock frozen */       // ✗ Block comment - typically IGNORED
-```text
+```
 
 **Rule:** Only process annotations in documentation comment styles for each language.
 
@@ -55,7 +55,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
 /**
  * @acp:lock frozen @acp:domain security
  */
-```text
+```
 
 **Resolution:** Each annotation SHOULD be on its own line. If on same line, parser MAY:
 - Process only the first annotation
@@ -72,7 +72,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * @acp:summary "Handles \"quoted\" strings and \n newlines"
  * @acp:lock-reason "Uses: colons, commas, and (parentheses)"
  */
-```text
+```
 
 **Rule:** Use quoted strings for values with special characters. Escape sequences:
 - `\"` — Literal quote
@@ -88,7 +88,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * @acp:lock                        // Missing value - uses namespace default
  * @acp:domain                      // Missing required value - ERROR
  */
-```text
+```
 
 **Rules:**
 - Empty quoted strings are valid
@@ -104,7 +104,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * detailed description that probably should have been shorter but
  * here we are with a very long annotation value"
  */
-```text
+```
 
 **Rule:** Multi-line continuation is supported. Lines are joined with single space.
 
@@ -115,7 +115,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * @acp:module "認証サービス"
  * @acp:summary "Handles émojis 🔐 and ünïcödé"
  */
-```text
+```
 
 **Rule:** UTF-8 is fully supported. All Unicode characters valid in values.
 
@@ -128,7 +128,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * @ACP:lock frozen      // ✗ Invalid - prefix is lowercase
  * @acp:lock frozen      // ✓ Valid
  */
-```text
+```
 
 **Rule:** Prefix, namespaces, and standard values are case-sensitive lowercase.
 
@@ -149,7 +149,7 @@ const regex = /@acp:lock frozen/;  // Should be IGNORED
  * @acp:lock normal    // Can a symbol override to LESS restrictive?
  */
 function helper() {}
-```text
+```
 
 **Resolution:** For lock levels, **most restrictive wins**. The symbol inherits `frozen`.
 
@@ -162,7 +162,7 @@ function helper() {}
  * @acp:domain security      // Domain default: lock=restricted
  * @acp:domain experimental  // Domain default: lock=experimental
  */
-```text
+```
 
 **Resolution:** Explicit file annotation wins. Without explicit annotation, **most restrictive domain default** applies.
 
@@ -170,12 +170,12 @@ function helper() {}
 
 **Scenario:** `.acp.dir.json` sets one constraint, file annotation sets another.
 
-```text
+```
 src/
 ├── .acp.dir.json         // { "constraints": { "lock": "restricted" } }
 └── utils/
     └── helper.ts         // @acp:lock experimental
-```text
+```
 
 **Resolution:** File annotation (more specific) wins. `helper.ts` is `experimental`.
 
@@ -183,13 +183,13 @@ src/
 
 **Scenario:** Multiple `.acp.dir.json` in path.
 
-```text
+```
 src/
 ├── .acp.dir.json         // { "constraints": { "lock": "normal" } }
 └── auth/
     ├── .acp.dir.json     // { "constraints": { "lock": "restricted" } }
     └── session.ts        // No annotation
-```text
+```
 
 **Resolution:** Nearest (most specific) directory config wins. `session.ts` is `restricted`.
 
@@ -201,7 +201,7 @@ src/
 // Project config: quality: ["tests-required"]
 // File annotation: @acp:quality security-review
 // Symbol annotation: @acp:quality performance-test
-```text
+```
 
 **Resolution:** Quality constraints **accumulate**. The symbol has all three requirements:
 - tests-required (from project)
@@ -222,7 +222,7 @@ src/
  * @acp:style-rules no-any
  */
 function strict() {}
-```text
+```
 
 **Resolution:** Style guide is inherited. Style rules **accumulate**:
 - `strict()` has: `google-typescript` with rules `max-line-length=100` AND `no-any`
@@ -235,9 +235,9 @@ function strict() {}
 
 **Scenario:** Reference to non-existent variable.
 
-```text
+```
 Check the $SYM_NONEXISTENT function.
-```text
+```
 
 **Resolution by mode:**
 - **Permissive:** Warn, leave as literal `$SYM_NONEXISTENT`
@@ -252,7 +252,7 @@ Check the $SYM_NONEXISTENT function.
   "VAR_A": { "type": "symbol", "value": "$VAR_B" },
   "VAR_B": { "type": "symbol", "value": "$VAR_A" }
 }
-```text
+```
 
 **Resolution:** Max expansion depth (default: 10). Returns `[CIRCULAR: $VAR_A]`.
 
@@ -265,7 +265,7 @@ Check the $SYM_NONEXISTENT function.
   "SYM_AUTH": { "type": "symbol", "value": "src/auth/session.ts:validateSession" },
   "CONTEXT_AUTH": { "type": "symbol", "value": "See $SYM_AUTH for details" }
 }
-```text
+```
 
 **Resolution:** Variables in values are expanded recursively (up to max depth).
 
@@ -273,9 +273,9 @@ Check the $SYM_NONEXISTENT function.
 
 **Scenario:** Using non-existent modifier.
 
-```text
+```
 Check $SYM_VALIDATE.invalid_modifier
-```text
+```
 
 **Resolution:**
 - **Permissive:** Warn, return base expansion (no modifier)
@@ -285,9 +285,9 @@ Check $SYM_VALIDATE.invalid_modifier
 
 **Scenario:** Using `.signature` on a file variable.
 
-```text
+```
 $FILE_SESSION.signature    // Files don't have signatures
-```text
+```
 
 **Resolution:** Warn, return base expansion. Modifier only applies to applicable types.
 
@@ -300,7 +300,7 @@ $FILE_SESSION.signature    // Files don't have signatures
   "SYM_": { "type": "symbol", "value": "..." },
   "SYM_123": { "type": "symbol", "value": "..." }
 }
-```text
+```
 
 **Resolution:** Variable names MUST match pattern `[A-Z][A-Z0-9_]+`. These are invalid.
 
@@ -308,9 +308,9 @@ $FILE_SESSION.signature    // Files don't have signatures
 
 **Scenario:** Text that looks like a variable but isn't.
 
-```text
+```
 The price is $50 and $SYM_VALIDATE is the function.
-```text
+```
 
 **Resolution:** Only `$PREFIX_NAME` patterns are expanded. `$50` is not touched.
 
@@ -328,7 +328,7 @@ $ cat .acp.cache.json | jq '.generated_at'
 
 $ stat src/auth/session.ts
 Modified: 2024-12-17T15:00:00Z  # Newer than cache!
-```text
+```
 
 **Detection methods:**
 1. Compare `generated_at` with file modification times
@@ -347,7 +347,7 @@ Modified: 2024-12-17T15:00:00Z  # Newer than cache!
     "src/deleted.ts": { ... }  // File no longer exists
   }
 }
-```text
+```
 
 **Resolution:**
 - Queries for missing files return `null`
@@ -366,7 +366,7 @@ Modified: 2024-12-17T15:00:00Z  # Newer than cache!
     }
   }
 }
-```text
+```
 
 **Resolution:** Validation error. Cache is corrupt, rebuild required.
 
@@ -381,7 +381,7 @@ Modified: 2024-12-17T15:00:00Z  # Newer than cache!
     "reverse": { "B": [] }      // Should include "A"!
   }
 }
-```text
+```
 
 **Resolution:** Validation error. Graphs MUST be consistent inverses.
 
@@ -396,7 +396,7 @@ Modified: 2024-12-17T15:00:00Z  # Newer than cache!
     "symbols": 500000
   }
 }
-```text
+```
 
 **Resolution:**
 - Consider splitting into multiple ACP projects
@@ -408,9 +408,9 @@ Modified: 2024-12-17T15:00:00Z  # Newer than cache!
 
 **Scenario:** Non-text files in include patterns.
 
-```text
+```
 include: ["**/*"]  // Includes images, compiled files, etc.
-```text
+```
 
 **Resolution:** Binary files are skipped with warning. Only text/code files indexed.
 
@@ -418,13 +418,13 @@ include: ["**/*"]  // Includes images, compiled files, etc.
 
 **Scenario:** Symbolic links in source tree.
 
-```text
+```
 src/
 ├── auth/
 │   └── session.ts
 └── legacy/
     └── auth -> ../auth/      # Symlink
-```text
+```
 
 **Resolution:** Implementation-dependent:
 - Follow symlinks (may cause duplicates)
@@ -439,12 +439,12 @@ src/
 
 **Scenario:** Project with TypeScript, Python, and Rust.
 
-```text
+```
 src/
 ├── api/          # TypeScript
 ├── ml/           # Python
 └── core/         # Rust
-```text
+```
 
 **Resolution:** All languages indexed. Annotation syntax same, comment style varies.
 
@@ -460,7 +460,7 @@ const result = await fetch('/api/ml/predict');
 @app.route('/api/ml/predict')
 def predict():
     pass
-```text
+```
 
 **Resolution:** Cross-language calls not detected in call graph. Use `@acp:ref` for documentation:
 
@@ -469,17 +469,17 @@ def predict():
  * @acp:ref "src/ml/predict.py:predict"
  */
 async function callPredict() { ... }
-```text
+```
 
 ### 5.3 Ambiguous File Extensions
 
 **Scenario:** File extension shared by multiple languages.
 
-```text
+```
 src/
 ├── module.h      # Could be C or C++
 └── script.m      # Could be Objective-C or MATLAB
-```text
+```
 
 **Resolution:** Heuristics applied:
 - `.h`: Check for C++ keywords, default to C
@@ -493,7 +493,7 @@ Configure explicitly in `.acp.config.json` if needed:
     "*.m": "objective-c"
   }
 }
-```text
+```
 
 ### 5.4 Embedded Languages
 
@@ -504,7 +504,7 @@ const query = `
   SELECT * FROM users
   WHERE id = $1
 `;  // Embedded SQL - not parsed
-```text
+```
 
 **Resolution:** Embedded languages not parsed. Only host language annotations processed.
 
@@ -518,14 +518,14 @@ const query = `
  * @acp:lock frozen
  * @acp:lock-reason "Generated code - regenerate from .proto"
  */
-```text
+```
 
 **Resolution:** Mark generated code as `frozen`. Consider excluding from index:
 ```json
 {
   "exclude": ["**/generated/**", "**/*.pb.ts"]
 }
-```text
+```
 
 ---
 
@@ -541,13 +541,13 @@ const query = `
  * @acp:lock restricted
  */
 function newFunction() {}
-```text
+```
 
 ```bash
 # Cache doesn't include new function!
 jq '.symbols["src/file.ts:newFunction"]' .acp.cache.json
 null
-```text
+```
 
 **Fix:** Run `acp index` after adding/changing annotations.
 
@@ -562,7 +562,7 @@ null
 /**
  * @acp:lock frozen           // ✓ JSDoc style
  */
-```text
+```
 
 **Fix:** Use documentation comment style for your language.
 
@@ -575,7 +575,7 @@ null
  * @acp:lok frozen            // ✗ Typo: "lok" not "lock"
  * @acp:sumary "Description"  // ✗ Typo: "sumary" not "summary"
  */
-```text
+```
 
 **Fix:** Enable strict mode to catch unknown namespaces.
 
@@ -592,7 +592,7 @@ null
  * @acp:lock normal           // Has no effect! File is frozen.
  */
 function helper() {}
-```text
+```
 
 **Fix:** Understand inheritance rules. Most restrictive wins.
 
@@ -605,7 +605,7 @@ function helper() {}
  * @acp:summary Handles user authentication   // Stops at "user"
  * @acp:summary "Handles user authentication" // ✓ Full string
  */
-```text
+```
 
 **Fix:** Quote values containing spaces or special characters.
 
@@ -621,7 +621,7 @@ function helper() {}
     "db": { "depends_on": ["auth"] }  // Circular!
   }
 }
-```text
+```
 
 **Fix:** Design domain hierarchy without cycles.
 
@@ -634,7 +634,7 @@ function helper() {}
  * @acp:lock frozen    // Is this really necessary?
  */
 function formatDate(d) { return d.toISOString(); }
-```text
+```
 
 **Fix:** Reserve high restriction levels for truly critical code. Most code should be `normal`.
 
@@ -647,7 +647,7 @@ function formatDate(d) { return d.toISOString(); }
  * @acp:lock restricted
  * // No lock-reason - AI doesn't know why!
  */
-```text
+```
 
 **Fix:** Always provide `@acp:lock-reason` for restricted/frozen code.
 
@@ -657,7 +657,7 @@ function formatDate(d) { return d.toISOString(); }
 
 ```bash
 git add .acp.cache.json   // ✗ Don't do this
-```text
+```
 
 **Problems:**
 - Cache contains absolute paths
@@ -665,11 +665,11 @@ git add .acp.cache.json   // ✗ Don't do this
 - Large file bloating repo
 
 **Fix:** Add to `.gitignore`:
-```text
+```
 .acp.cache.json
 .acp.vars.json
 .acp.violations.log
-```text
+```
 
 ### 6.10 Conflicting Annotations
 
@@ -680,7 +680,7 @@ git add .acp.cache.json   // ✗ Don't do this
  * @acp:stability stable
  * @acp:stability experimental    // Which is it?
  */
-```text
+```
 
 **Resolution:** Last one wins, but this is confusing.
 

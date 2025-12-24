@@ -23,7 +23,7 @@ This example shows a typical web application with:
 
 ## Project Structure
 
-```text
+```
 ecommerce-api/
 ├── src/
 │   ├── auth/
@@ -48,7 +48,7 @@ ecommerce-api/
 ├── .acp.config.json
 ├── .acp.cache.json           # Generated
 └── .acp.vars.json            # Generated
-```text
+```
 
 ---
 
@@ -106,7 +106,7 @@ export async function endSession(sessionId: string): Promise<void> {
 export async function invalidateAllSessions(userId: string): Promise<void> {
   // Implementation
 }
-```text
+```
 
 **`src/auth/jwt.ts`**
 ```typescript
@@ -144,7 +144,7 @@ export async function verifyToken(token: string): Promise<TokenPayload | null> {
 export function createToken(payload: TokenPayload): string {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
-```text
+```
 
 ### Billing Domain
 
@@ -192,7 +192,7 @@ export async function processRefund(
 ): Promise<RefundResult> {
   // Implementation - DO NOT MODIFY
 }
-```text
+```
 
 **`src/billing/subscription.ts`**
 ```typescript
@@ -226,7 +226,7 @@ export async function cancelSubscription(
 ): Promise<void> {
   // Implementation
 }
-```text
+```
 
 ### API Layer
 
@@ -279,7 +279,7 @@ export function rateLimitMiddleware(
 ): Middleware {
   // Implementation
 }
-```text
+```
 
 ### Database Layer
 
@@ -313,7 +313,7 @@ export const pool = new Pool({
 export async function query(sql: string, params?: any[]): Promise<QueryResult> {
   return pool.query(sql, params);
 }
-```text
+```
 
 ### Utilities
 
@@ -345,7 +345,7 @@ export function formatDate(date: Date): string {
 export function generateId(): string {
   return Math.random().toString(36).substring(2);
 }
-```text
+```
 
 ---
 
@@ -407,7 +407,7 @@ export function generateId(): string {
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 ---
 
@@ -460,7 +460,7 @@ export function generateId(): string {
     }
   }
 }
-```text
+```
 
 ---
 
@@ -662,7 +662,7 @@ export function generateId(): string {
     }
   }
 }
-```text
+```
 
 ---
 
@@ -687,7 +687,7 @@ jq '.constraints.by_file["src/auth/session.ts"]' .acp.cache.json
 
 # Find files requiring tests
 jq '.constraints.by_lock_level["tests-required"]' .acp.cache.json
-```text
+```
 
 ### Domain Queries
 
@@ -697,7 +697,7 @@ jq '.domains["authentication"].files' .acp.cache.json
 
 # Get all billing symbols
 jq '.domains["billing"].symbols' .acp.cache.json
-```text
+```
 
 ### Call Graph Queries
 
@@ -709,25 +709,25 @@ jq '.graph.forward["src/auth/session.ts:validateSession"]' .acp.cache.json
 # What calls verifyToken?
 jq '.graph.reverse["src/auth/jwt.ts:verifyToken"]' .acp.cache.json
 # ["src/auth/session.ts:validateSession"]
-```text
+```
 
 ### Variable Usage
 
 Using variables in prompts:
 
-```text
+```
 Fix the bug in $SYM_VALIDATE_SESSION that causes 401 errors.
 Check if $SYM_AUTH_MIDDLEWARE is calling it correctly.
-```text
+```
 
 Expands to:
 
-```text
+```
 Fix the bug in validateSession (src/auth/session.ts:18-23) - Validates JWT token
 that causes 401 errors.
 Check if authMiddleware (src/api/middleware.ts:15-35) - Authentication middleware
 is calling it correctly.
-```text
+```
 
 ---
 
@@ -736,18 +736,18 @@ is calling it correctly.
 1. **User Request:** "Fix the authentication bug causing 401 errors"
 
 2. **AI Queries Context:**
-   ```text
+   ```
    acp_query(type="domain", name="authentication")
-   ```text
+   ```
 
 3. **AI Checks Constraints:**
-   ```text
+   ```
    acp_constraints(file="src/auth/session.ts")
-   ```text
+   ```
    Response: `{ "lock_level": "restricted", "approval_needed": true }`
 
 4. **AI Response:**
-   ```text
+   ```
    I found the authentication domain files. Before modifying src/auth/session.ts,
    I need to note that this file is marked as "restricted" because it's
    security-critical code.
@@ -756,7 +756,7 @@ is calling it correctly.
    [detailed explanation]
    
    Do you approve these changes?
-   ```text
+   ```
 
 ---
 

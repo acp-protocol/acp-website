@@ -21,15 +21,15 @@ order: 3
 Variables provide token-efficient references to code elements. Instead of including full context in every prompt, users and AI can reference compact variable names that expand to complete information.
 
 **Without variables:**
-```text
+```
 Check the validateSession function in src/auth/session.ts lines 45-89
 which validates JWT tokens and returns Session objects...
-```text
+```
 
 **With variables:**
-```text
+```
 Check $SYM_VALIDATE for the auth logic.
-```text
+```
 
 This reduces token usage by 50-90% while maintaining full context.
 
@@ -89,7 +89,7 @@ The variables file:
     }
   }
 }
-```text
+```
 
 ### 2.3 Root Fields
 
@@ -125,8 +125,10 @@ Variables are referenced using the format: `$VARIABLE_NAME[.modifier]`
 Variables follow this format:
 
 ```text
-$<CATEGORY>_<IDENTIFIER>
-```text
+$CATEGORY_IDENTIFIER
+```
+
+Where CATEGORY and IDENTIFIER are placeholders.
 
 - MUST start with `$`
 - Category prefix MUST be uppercase
@@ -135,19 +137,19 @@ $<CATEGORY>_<IDENTIFIER>
 - Only letters, digits, underscores after `$`
 
 **Valid names:**
-```text
+```
 $SYM_VALIDATE_SESSION     ✓ Valid
 $FILE_AUTH_SERVICE        ✓ Valid
 $DOMAIN_AUTHENTICATION    ✓ Valid
-```text
+```
 
 **Invalid names:**
-```text
+```
 $SYM_validateSession      ✗ Invalid (not uppercase)
 $sym_validate_session     ✗ Invalid (prefix not uppercase)
 $VALIDATE_SESSION         ✗ Invalid (no category prefix)
 $SYM-VALIDATE-SESSION     ✗ Invalid (hyphens not allowed)
-```text
+```
 
 ### 3.3 Category Prefixes
 
@@ -166,14 +168,14 @@ $SYM-VALIDATE-SESSION     ✗ Invalid (hyphens not allowed)
 Reference code symbols (functions, classes, etc.).
 
 **Value Format:** Qualified symbol name
-```text
+```
 "src/auth/session.ts:SessionService.validateSession"
-```text
+```
 
 **Expansion (default):**
-```text
+```
 validateSession (src/auth/session.ts:45-89) - Validates JWT tokens
-```text
+```
 
 **Example:**
 ```json
@@ -184,21 +186,21 @@ validateSession (src/auth/session.ts:45-89) - Validates JWT tokens
     "description": "Validates JWT tokens and returns session"
   }
 }
-```text
+```
 
 ### 4.2 File Variables (`FILE_`)
 
 Reference files/modules.
 
 **Value Format:** File path
-```text
+```
 "src/auth/session.ts"
-```text
+```
 
 **Expansion (default):**
-```text
+```
 src/auth/session.ts (Session Service) - User session management, 245 lines
-```text
+```
 
 **Example:**
 ```json
@@ -209,21 +211,21 @@ src/auth/session.ts (Session Service) - User session management, 245 lines
     "description": "Session management service"
   }
 }
-```text
+```
 
 ### 4.3 Domain Variables (`DOM_`)
 
 Reference logical domains.
 
 **Value Format:** Domain name
-```text
+```
 "authentication"
-```text
+```
 
 **Expansion (default):**
-```text
+```
 authentication domain (3 files, 15 symbols) - User authentication and session management
-```text
+```
 
 **Example:**
 ```json
@@ -234,7 +236,7 @@ authentication domain (3 files, 15 symbols) - User authentication and session ma
     "description": "User authentication and session management"
   }
 }
-```text
+```
 
 ---
 
@@ -249,24 +251,24 @@ Modifiers control what information is included in variable expansion.
 | (none) | Summary | `$SYM_VALIDATE` → "validateSession (src/auth/session.ts:45-89) validates JWT tokens" | Quick reference |
 | `.full` | Complete JSON | `$SYM_VALIDATE.full` → entire SymbolEntry object | Detailed analysis |
 | `.ref` | File reference | `$SYM_VALIDATE.ref` → "src/auth/session.ts:45-89" | Source location |
-| `.signature` | Signature only | `$SYM_VALIDATE.signature` → "(token: string) => Promise<Session \| null>" | Type checking |
+| `.signature` | Signature only | `$SYM_VALIDATE.signature` → `"(token: string) => Promise"` | Type checking |
 
 ### 5.2 Summary Format (no modifier)
 
 **Symbol:**
-```text
+```
 {name} ({file}:{lines}) {summary}
-```text
+```
 
 **File:**
-```text
+```
 {path} ({lines} lines) {summary}
-```text
+```
 
 **Domain:**
-```text
+```
 {name}: {description}
-```text
+```
 
 ### 5.3 Full Format (`.full`)
 
@@ -278,9 +280,9 @@ Returns complete JSON object from cache:
 ### 5.4 Reference Format (`.ref`)
 
 **For symbols:**
-```text
+```
 {file}:{start_line}-{end_line}
-```text
+```
 
 **Example:** `src/auth/session.ts:45-89`
 
@@ -288,7 +290,7 @@ Returns complete JSON object from cache:
 
 Only for symbols with signatures (functions, methods).
 
-**Example:** `(token: string) => Promise<Session | null>`
+**Example:** `(token: string) => Promise`
 
 **Behavior:**
 - If not applicable: Use base expansion, emit warning
@@ -412,24 +414,24 @@ In strict mode (configured in `.acp.config.json`):
     }
   }
 }
-```text
+```
 
 ### 8.2 Expansion Examples
 
 **Input:**
-```text
+```
 Debug $SYM_VALIDATE - users getting 401 errors
-```text
+```
 
 **Expanded (default):**
-```text
+```
 Debug validateSession (src/auth/session.ts:45-89) - Validates JWT tokens and returns session - users getting 401 errors
-```text
+```
 
 **Input:**
-```text
+```
 Check $SYM_VALIDATE.full for the auth bug
-```text
+```
 
 **Expanded (.full modifier):**
 ```json
@@ -444,28 +446,28 @@ Check {
   "exported": true,
   "async": true
 } for the auth bug
-```text
+```
 
 **Input:**
-```text
+```
 The bug is in $SYM_VALIDATE.ref
-```text
+```
 
 **Expanded (.ref modifier):**
-```text
+```
 The bug is in src/auth/session.ts:45-89
-```text
+```
 
 ### 8.3 Usage in Prompts
 
-```text
+```
 User: "I'm getting 401 errors. Check $SYM_VALIDATE and $FILE_MIDDLEWARE for issues."
 
 AI receives expanded:
 "I'm getting 401 errors. Check validateSession (src/auth/session.ts:45-89) -
 Validates JWT tokens and returns session and src/auth/middleware.ts
 (Authentication Middleware) - Express middleware for request authentication, 50 lines for issues."
-```text
+```
 
 ### 8.4 jq Queries
 
@@ -481,7 +483,7 @@ jq '.variables | to_entries | map(select(.value.value | contains("session.ts")))
 
 # List all variable names
 jq '.variables | keys' .acp.vars.json
-```text
+```
 
 ---
 

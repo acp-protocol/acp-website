@@ -58,9 +58,9 @@ Hack markers are annotations that flag temporary solutions or workarounds.
 
 ### 2.2 Hack Annotation
 
-```text
+```
 @acp:hack <reason>
-```text
+```
 
 **Example:**
 ```javascript
@@ -74,7 +74,7 @@ function parseResponse(data) {
   }
   return parseNewFormat(data);
 }
-```text
+```
 
 ### 2.3 Basic Usage
 
@@ -94,7 +94,7 @@ def process_data(input_data):
     if is_legacy_format(input_data):
         return convert_legacy(input_data)
     return process_normal(input_data)
-```text
+```
 
 ---
 
@@ -110,9 +110,9 @@ Debug sessions provide a way to track debugging attempts and hypotheses.
 
 ### 3.2 Debug Annotation
 
-```text
+```
 @acp:debug <session-identifier>
-```text
+```
 
 **Example:**
 ```javascript
@@ -123,7 +123,7 @@ function validateToken(token) {
   console.log('Debug: validating token', token); // Debug code
   return verify(token);
 }
-```text
+```
 
 ### 3.3 Basic Usage
 
@@ -148,7 +148,7 @@ function debugAuthFlow(user: User) {
   });
   // Debug investigation code
 }
-```text
+```
 
 ---
 
@@ -196,7 +196,7 @@ function adjustTimezone(date) {
   }
   return date;
 }
-```text
+```
 
 ### 5.2 Debug Example
 
@@ -213,7 +213,7 @@ function trackMemoryUsage() {
     });
   }
 }
-```text
+```
 
 ### 5.3 Combined Example
 
@@ -233,7 +233,7 @@ class PaymentProcessor:
             return self._process_in_batches(amount, currency)
 
         return self._process_normal(amount, currency)
-```text
+```
 
 ### 5.4 Cache Storage (v1.1)
 
@@ -259,7 +259,7 @@ class PaymentProcessor:
     ]
   }
 }
-```text
+```
 
 ---
 

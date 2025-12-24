@@ -129,7 +129,7 @@ The cache file contains a pre-computed index of the codebase.
   "domains": { /* DomainEntry objects */ },
   "constraints": { /* ConstraintIndex */ }
 }
-```text
+```
 
 #### 3.1.2 Top-Level Fields
 
@@ -176,7 +176,7 @@ The cache file contains a pre-computed index of the codebase.
   "exports": ["src/auth/session.ts:SessionService"],
   "imports": ["jsonwebtoken", "src/db/users"]
 }
-```text
+```
 
 #### 3.1.4 SymbolEntry Specification
 
@@ -225,7 +225,7 @@ The cache file contains a pre-computed index of the codebase.
     "src/api/middleware.ts:authMiddleware"
   ]
 }
-```text
+```
 
 #### 3.1.5 Staleness Detection
 
@@ -267,7 +267,7 @@ The cache includes metadata to detect when it becomes stale:
     ]
   }
 }
-```text
+```
 
 #### 3.1.7 DomainEntry Structure
 
@@ -284,7 +284,7 @@ The cache includes metadata to detect when it becomes stale:
     "src/auth/token.ts:generateToken"
   ]
 }
-```text
+```
 
 #### 3.1.8 ConstraintIndex Structure
 
@@ -302,7 +302,7 @@ The cache includes metadata to detect when it becomes stale:
     "restricted": ["src/auth/session.ts"]
   }
 }
-```text
+```
 
 ### 3.2 Variables File (`.acp.vars.json`)
 
@@ -329,7 +329,7 @@ The variables file defines reusable references to code elements.
     }
   }
 }
-```text
+```
 
 **Field Specifications:**
 
@@ -390,7 +390,7 @@ The config file controls ACP behavior.
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 **Field Specifications:**
 
@@ -413,7 +413,7 @@ Annotations embed structured metadata in source code comments.
 
 ### 4.1 EBNF Grammar
 
-```text
+```
 annotation     = "@acp:" namespace [ ":" sub-namespace ] [ " " value ]
 namespace      = identifier
 sub-namespace  = identifier
@@ -434,7 +434,7 @@ unquoted-string= { any-char-except-newline }
  * @acp:lock restricted
  * @acp:lock-reason "Security critical - requires review"
  */
-```text
+```
 
 **Python:**
 ```python
@@ -444,14 +444,14 @@ unquoted-string= { any-char-except-newline }
 @acp:domain data
 @acp:layer repository
 """
-```text
+```
 
 **Rust:**
 ```rust
 //! @acp:module "Core Engine"
 //! @acp:summary Main processing engine
 //! @acp:domain processing
-```text
+```
 
 ### 4.3 Reserved Namespaces
 
@@ -550,11 +550,11 @@ For each documentation comment:
 
 Consecutive lines with same namespace are treated as single annotation:
 
-```text
+```
 @acp:summary This is a long
 summary that spans multiple
 lines and should be combined
-```text
+```
 
 Results in: `@acp:summary "This is a long summary that spans multiple lines and should be combined"`
 
@@ -627,7 +627,7 @@ This means:
  * @acp:lock frozen
  * @acp:lock-reason "Production database credentials"
  */
-```text
+```
 
 ### 5.3 Style Constraints
 
@@ -639,7 +639,7 @@ Style constraints guide code formatting and conventions.
  * @acp:style google-typescript
  * @acp:style-rules max-line-length=100, no-any
  */
-```text
+```
 
 **Behavior:**
 - AI SHOULD follow specified style guide
@@ -655,7 +655,7 @@ Behavior constraints guide AI decision-making approach.
 /**
  * @acp:behavior conservative
  */
-```text
+```
 
 **Values:**
 - `conservative`: Prefer safe, minimal changes
@@ -671,7 +671,7 @@ Quality requirements specify additional checks needed.
 /**
  * @acp:quality security-review, performance-test
  */
-```text
+```
 
 **Common Requirements:**
 - `security-review`: Requires security audit
@@ -693,7 +693,7 @@ Implementations MAY provide optional constraint violation logging.
     "audit_file": ".acp.violations.log"
   }
 }
-```text
+```
 
 **Log Format** (if enabled):
 ```json
@@ -705,7 +705,7 @@ Implementations MAY provide optional constraint violation logging.
   "user_override": false,
   "context": "AI attempted modification of frozen file"
 }
-```text
+```
 
 Implementations MAY provide `--audit` flag to enable tracking for a session.
 
@@ -722,15 +722,15 @@ Variables provide token-efficient references to code elements.
 Variables replace verbose inline references with short tokens:
 
 **Without variables** (high token cost):
-```text
+```
 Please review the validateSession function in src/auth/session.ts
 (lines 45-89) which validates JWT tokens and returns session data...
-```text
+```
 
 **With variables** (low token cost):
-```text
+```
 Please review $SYM_VALIDATE...
-```text
+```
 
 ### 6.2 Syntax
 
@@ -761,7 +761,7 @@ Modifiers control what information is included in variable expansion.
 | (none) | Summary | `$SYM_VALIDATE` → "validateSession (src/auth/session.ts:45-89) validates JWT tokens" | Quick reference |
 | `.full` | Complete JSON | `$SYM_VALIDATE.full` → entire SymbolEntry object | Detailed analysis |
 | `.ref` | File reference | `$SYM_VALIDATE.ref` → "src/auth/session.ts:45-89" | Source location |
-| `.signature` | Signature only | `$SYM_VALIDATE.signature` → "(token: string) => Promise<Session \| null>" | Type checking |
+| `.signature` | Signature only | `$SYM_VALIDATE.signature` → `"(token: string) => Promise"` | Type checking |
 
 **Summary Format** (no modifier):
 - Symbol: `{name} ({file}:{lines}) {summary}`
@@ -944,7 +944,7 @@ If two constraints at the **same precedence level** conflict:
 /**
  * @acp:lock normal
  */
-```text
+```
 **Result:** `normal` (last wins)
 
 **Recommendation:** Avoid this. Use linter to detect conflicts.
@@ -995,7 +995,7 @@ If two constraints at the **same precedence level** conflict:
  * @acp:lock normal
  */
 function dangerousOperation() { }
-```text
+```
 
 **Resolution:**
 - File level: `lock=restricted`, `behavior=conservative`
@@ -1032,7 +1032,7 @@ function dangerousOperation() { }
     "**/*.spec.*"
   ]
 }
-```text
+```
 
 **Custom exclusions** can be added in `.acp.config.json`.
 
@@ -1062,7 +1062,7 @@ This section specifies algorithms for cache generation.
     }
   }
 }
-```text
+```
 
 **Import Analysis:**
 - If file imports primarily from one domain, classify in that domain
@@ -1109,7 +1109,7 @@ This section specifies algorithms for cache generation.
     "exclude_patterns": ["**/test/**"]
   }
 }
-```text
+```
 
 ### 8.4 Language Detection
 
@@ -1137,7 +1137,7 @@ Files are classified by extension:
 
 | Extension | Check For | If Found | Else |
 |-----------|-----------|----------|------|
-| `.h` | `#include <iostream>` or C++ keywords | cpp | c |
+| `.h` | `#include` with iostream or C++ keywords | cpp | c |
 | `.m` | `@interface`, `@implementation` | objective-c | (error: unknown) |
 
 **Unknown Extensions:**
@@ -1171,7 +1171,7 @@ Implementations SHOULD respect these limits:
     "max_cache_size_mb": 100
   }
 }
-```text
+```
 
 **Behavior When Exceeded:**
 - Permissive: Warn, skip offending item, continue
@@ -1198,17 +1198,17 @@ The cache is standard JSON, queryable with `jq`:
 **Find all frozen files:**
 ```bash
 jq '.constraints.by_lock_level.frozen[]' .acp.cache.json
-```text
+```
 
 **Get file summary:**
 ```bash
 jq '.files["src/auth/session.ts"]' .acp.cache.json
-```text
+```
 
 **Find authentication domain files:**
 ```bash
 jq '.domains.authentication.files[]' .acp.cache.json
-```text
+```
 
 ### 9.2 Command Line Interface
 
@@ -1226,7 +1226,7 @@ acp query --symbol validateSession
 
 # Rebuild cache
 acp index --force
-```text
+```
 
 ### 9.3 MCP Server Interface
 
@@ -1352,12 +1352,12 @@ An implementation claiming conformance MUST:
 4. **Provide evidence:** Link to test results or documentation
 
 **Claim Format:**
-```text
+```
 Implements ACP 1.0.0 Level 2 (Standard)
 Conformance Documentation: [URL]
 Test Results: [URL]
 Known Limitations: [list any MUST requirements not met]
-```text
+```
 
 ### 10.5 Partial Conformance
 
@@ -1366,21 +1366,21 @@ An implementation MAY claim partial conformance by specifying:
 - Additional features: Specific features from higher levels
 
 **Example:**
-```text
+```
 Implements ACP 1.0.0 Level 1 (Reader)
 Additional Features:
   - MCP interface (from Level 3)
   - Staleness detection (from Level 2)
-```text
+```
 
 ### 10.6 Non-Conformance
 
 An implementation that uses ACP concepts but doesn't meet a conformance level MUST NOT claim conformance. Instead, it MAY state:
 
-```text
+```
 Compatible with ACP 1.0.0 concepts
 Does not claim formal conformance
-```text
+```
 
 ### 10.7 Conformance Testing
 
@@ -1415,7 +1415,7 @@ Implementations MUST support configurable strictness via `.acp.config.json`:
     "strictness": "permissive"  // or "strict"
   }
 }
-```text
+```
 
 #### Permissive Mode (Default)
 
@@ -1474,7 +1474,7 @@ Use strict mode for:
   "snippet": "@acp:lock frozen extra-text",
   "suggestion": "Remove trailing text or use lock-reason"
 }
-```text
+```
 
 #### Semantic Errors
 
@@ -1504,7 +1504,7 @@ Use strict mode for:
   "snippet": "@acp:custom-feature value",
   "suggestion": "Use @acp:x-vendor:custom-feature for extensions"
 }
-```text
+```
 
 #### Runtime Errors
 
@@ -1533,7 +1533,7 @@ Use strict mode for:
   "context": "Referenced in cache but file no longer exists",
   "suggestion": "Rebuild cache with: acp index --force"
 }
-```text
+```
 
 #### Resource Errors
 
@@ -1563,7 +1563,7 @@ Use strict mode for:
   "limit": "10MB",
   "suggestion": "Add to exclude pattern or increase limit in config"
 }
-```text
+```
 
 ### 11.4 Error Response Format
 
@@ -1585,7 +1585,7 @@ interface AcpError {
   context?: string;  // Additional context
   suggestion?: string;  // How to fix
 }
-```text
+```
 
 ### 11.5 Error Codes
 
@@ -1666,12 +1666,12 @@ interface AcpError {
 
 Implementations SHOULD write errors to stderr in human-readable format:
 
-```text
+```
 [ERROR E001] Invalid annotation syntax (src/auth/session.ts:45:12)
   @acp:lock frozen extra-text
               ^^^^^^^^^^^^^^
   Suggestion: Remove trailing text or use lock-reason
-```text
+```
 
 #### Structured Output
 
@@ -1679,7 +1679,7 @@ Implementations MUST support `--json` flag for structured error output:
 
 ```bash
 acp index --json 2> errors.json
-```text
+```
 
 Output format:
 ```json
@@ -1697,7 +1697,7 @@ Output format:
     "files_failed": 3
   }
 }
-```text
+```
 
 ### 11.8 Exit Codes
 
@@ -1762,7 +1762,7 @@ All ACP files include a `version` field:
   "version": "1.0.0",
   ...
 }
-```text
+```
 
 This indicates the ACP specification version used to generate the file.
 
@@ -1793,11 +1793,11 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:module` | `<name>` | `@acp:module "Auth Service"` | Human-readable module name |
-| `@acp:summary` | `<text>` | `@acp:summary "Handles authentication"` | Brief module description |
-| `@acp:domain` | `<name>` | `@acp:domain authentication` | Domain classification |
-| `@acp:layer` | `<name>` | `@acp:layer service` | Architectural layer |
-| `@acp:stability` | `<level>` | `@acp:stability stable` | Stability indicator (stable, experimental, deprecated) |
+| `@acp:module` | *name* | `@acp:module "Auth Service"` | Human-readable module name |
+| `@acp:summary` | *text* | `@acp:summary "Handles authentication"` | Brief module description |
+| `@acp:domain` | *name* | `@acp:domain authentication` | Domain classification |
+| `@acp:layer` | *name* | `@acp:layer service` | Architectural layer |
+| `@acp:stability` | *level* | `@acp:stability stable` | Stability indicator (stable, experimental, deprecated) |
 
 #### @acp:symbol
 
@@ -1806,8 +1806,8 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:summary` | `<text>` | `@acp:summary "Validates user session"` | Brief symbol description |
-| `@acp:deprecated` | `<message>` | `@acp:deprecated "Use validateToken instead"` | Deprecation notice |
+| `@acp:summary` | *text* | `@acp:summary "Validates user session"` | Brief symbol description |
+| `@acp:deprecated` | *message* | `@acp:deprecated "Use validateToken instead"` | Deprecation notice |
 
 #### @acp:lock
 
@@ -1816,8 +1816,8 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:lock` | `<level>` | `@acp:lock frozen` | Lock level (frozen, restricted, approval-required, tests-required, docs-required, normal, experimental) |
-| `@acp:lock-reason` | `<text>` | `@acp:lock-reason "Security critical"` | Justification for lock level |
+| `@acp:lock` | *level* | `@acp:lock frozen` | Lock level (frozen, restricted, approval-required, tests-required, docs-required, normal, experimental) |
+| `@acp:lock-reason` | *text* | `@acp:lock-reason "Security critical"` | Justification for lock level |
 
 **Default:** Files and symbols without explicit `@acp:lock` default to `normal`.
 
@@ -1828,8 +1828,8 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:style` | `<guide>` | `@acp:style google-typescript` | Style guide reference |
-| `@acp:style-rules` | `<rules>` | `@acp:style-rules max-line-length=100, no-any` | Custom style rules (comma-separated) |
+| `@acp:style` | *guide* | `@acp:style google-typescript` | Style guide reference |
+| `@acp:style-rules` | *rules* | `@acp:style-rules max-line-length=100, no-any` | Custom style rules (comma-separated) |
 
 #### @acp:behavior
 
@@ -1838,7 +1838,7 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:behavior` | `<approach>` | `@acp:behavior conservative` | Approach (conservative, balanced, aggressive) |
+| `@acp:behavior` | *approach* | `@acp:behavior conservative` | Approach (conservative, balanced, aggressive) |
 
 #### @acp:quality
 
@@ -1847,7 +1847,7 @@ All annotations use the `@acp:` prefix followed by a namespace.
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:quality` | `<requirements>` | `@acp:quality security-review, performance-test` | Quality requirements (comma-separated) |
+| `@acp:quality` | *requirements* | `@acp:quality security-review, performance-test` | Quality requirements (comma-separated) |
 
 Common values: `security-review`, `performance-test`, `manual-test`, `regression-test`
 
@@ -1858,7 +1858,7 @@ Common values: `security-review`, `performance-test`, `manual-test`, `regression
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:test` | `<coverage>` | `@acp:test required` | Testing requirement |
+| `@acp:test` | *coverage* | `@acp:test required` | Testing requirement |
 
 #### @acp:debug
 
@@ -1867,7 +1867,7 @@ Common values: `security-review`, `performance-test`, `manual-test`, `regression
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:debug` | `<session>` | `@acp:debug session-2024-12-17` | Debug session identifier |
+| `@acp:debug` | *session* | `@acp:debug session-2024-12-17` | Debug session identifier |
 
 **Note:** Debug feature detailed specification deferred to v1.1
 
@@ -1878,7 +1878,7 @@ Common values: `security-review`, `performance-test`, `manual-test`, `regression
 
 | Annotation | Parameters | Example | Description |
 |------------|-----------|---------|-------------|
-| `@acp:hack` | `<reason>` | `@acp:hack "Workaround for API bug #123"` | Explanation of temporary solution |
+| `@acp:hack` | *reason* | `@acp:hack "Workaround for API bug #123"` | Explanation of temporary solution |
 
 **Note:** Hack feature detailed specification deferred to v1.1
 
@@ -2088,7 +2088,7 @@ Official schemas are hosted at:
     }
   }
 }
-```text
+```
 
 ### B.2 Variables Schema (`vars.schema.json`)
 
@@ -2124,7 +2124,7 @@ Official schemas are hosted at:
     }
   }
 }
-```text
+```
 
 ### B.3 Config Schema (`config.schema.json`)
 
@@ -2209,14 +2209,14 @@ Official schemas are hosted at:
     }
   }
 }
-```text
+```
 
 ### Usage
 
 To validate a cache file:
 ```bash
 jsonschema -i .acp.cache.json https://acp-protocol.dev/schemas/v1/cache.schema.json
-```text
+```
 
 To validate programmatically (Node.js with Ajv):
 ```javascript
@@ -2228,7 +2228,7 @@ const data = require('./.acp.cache.json');
 
 const valid = ajv.validate(schema, data);
 if (!valid) console.log(ajv.errors);
-```text
+```
 
 ---
 
