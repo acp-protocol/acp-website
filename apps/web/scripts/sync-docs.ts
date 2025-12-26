@@ -548,6 +548,34 @@ function generateMetaFiles(): void {
 }
 
 /**
+ * Copy schema files to public directory for direct access
+ * This ensures https://acp-protocol.dev/schemas/v1/*.schema.json works
+ */
+function copySchemasToPubic(): void {
+  console.log("\n📦 Copying schemas to public directory...");
+
+  const sourceDir = path.join(resolvePath(CONFIG.schemasDir), "v1");
+  const publicDir = path.join(resolvePath("."), "public", "schemas", "v1");
+
+  if (!fs.existsSync(sourceDir)) {
+    console.log("  ⚠ Schemas source directory not found");
+    return;
+  }
+
+  // Create public schemas directory
+  fs.mkdirSync(publicDir, { recursive: true });
+
+  // Copy all schema files
+  const files = fs.readdirSync(sourceDir).filter((f) => f.endsWith(".json"));
+  for (const file of files) {
+    const sourcePath = path.join(sourceDir, file);
+    const destPath = path.join(publicDir, file);
+    fs.copyFileSync(sourcePath, destPath);
+    console.log(`  ✓ schemas/v1/${file}`);
+  }
+}
+
+/**
  * Clean output directory
  */
 function cleanOutputDir(): void {
@@ -577,6 +605,9 @@ async function main(): Promise<void> {
 
   // Generate navigation metadata
   generateMetaFiles();
+
+  // Copy schemas to public for direct URL access
+  copySchemasToPubic();
 
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
   console.log(`\n✅ Documentation sync complete in ${elapsed}s`);

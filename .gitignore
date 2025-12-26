@@ -12,6 +12,9 @@ build/
 # Generated documentation (synced from acp-spec)
 apps/web/content/docs/
 
+# Generated schemas for public access (synced from acp-spec)
+apps/web/public/schemas/
+
 # Cache
 *.tsbuildinfo
 .eslintcache
