@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import type { NavSection } from "@/lib/docs-utils";
 import { cn } from "@acp-website/ui/lib/utils";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 /**
  * @acp:summary "DocsSidebarProps interface"
@@ -51,10 +53,25 @@ export function DocsSidebar({ navigation }: DocsSidebarProps) {
 
   return (
     <aside className="fixed left-0 top-0 z-40 hidden h-screen w-64 overflow-y-auto border-r border-border bg-card/50 px-4 py-6 lg:block">
-      <div className="mb-6">
-        <Link href="/" className="text-xl font-bold">
+      <div className="mb-6 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+          <Image
+            src="/ACP-Logo-Dark.svg"
+            alt="ACP Logo"
+            width={72}
+            height={72}
+            className="hidden dark:block"
+          />
+          <Image
+            src="/ACP-Logo-Light.svg"
+            alt="ACP Logo"
+            width={72}
+            height={72}
+            className="block dark:hidden"
+          />
           ACP Protocol
         </Link>
+        <ThemeSwitcher />
       </div>
 
       <nav className="space-y-2">

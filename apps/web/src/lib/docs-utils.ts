@@ -135,7 +135,29 @@ export async function buildNavigation(): Promise<NavSection[]> {
     });
   }
 
-  return sections;
+  // Sort sections by their order
+  return sections.sort((a, b) => {
+    const orderA = getSectionOrder(a.slug);
+    const orderB = getSectionOrder(b.slug);
+    return orderA - orderB;
+  });
+}
+
+/**
+ * Get section order from _meta.json
+ */
+function getSectionOrder(sectionSlug: string): number {
+  if (!sectionSlug) return 0; // Overview section first
+  const metaPath = path.join(CONTENT_DIR, sectionSlug, "_meta.json");
+  if (fs.existsSync(metaPath)) {
+    try {
+      const meta = JSON.parse(fs.readFileSync(metaPath, "utf8"));
+      return meta.order ?? 999;
+    } catch {
+      return 999;
+    }
+  }
+  return 999;
 }
 
 /**
@@ -163,11 +185,6 @@ async function buildSection(dirName: string): Promise<NavSection | null> {
    * @acp:layer utility
    */
   let sectionTitle = formatTitle(dirName);
-  /**
-   * @acp:domain library
-   * @acp:layer utility
-   */
-  let sectionOrder = 999;
 
   // Check for _meta.json for section configuration
   /**
@@ -183,7 +200,6 @@ async function buildSection(dirName: string): Promise<NavSection | null> {
        */
       const meta = JSON.parse(fs.readFileSync(metaPath, "utf8"));
       if (meta.title) sectionTitle = meta.title;
-      if (meta.order !== undefined) sectionOrder = meta.order;
     } catch {
       // Ignore meta file errors
     }

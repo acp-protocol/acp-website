@@ -9,6 +9,9 @@ dist/
 build/
 .turbo/
 
+# Generated documentation (synced from acp-spec)
+apps/web/content/docs/
+
 # Cache
 *.tsbuildinfo
 .eslintcache

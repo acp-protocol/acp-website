@@ -8,7 +8,22 @@ import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
+import { visit } from "unist-util-visit";
+import type { Root, Code } from "mdast";
 import { extractToc, type TocEntry } from "./toc";
+
+/**
+ * Remark plugin that adds 'text' language to code blocks without a language
+ */
+function remarkDefaultCodeLanguage() {
+  return (tree: Root) => {
+    visit(tree, "code", (node: Code) => {
+      if (!node.lang) {
+        node.lang = "text";
+      }
+    });
+  };
+}
 
 /**
  * @acp:domain library
@@ -96,7 +111,7 @@ export async function getDocBySlug(slug: string[]): Promise<DocContent | null> {
     options: {
       parseFrontmatter: false,
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm, remarkDefaultCodeLanguage],
         rehypePlugins: [
           [
             rehypePrettyCode,
@@ -112,25 +127,7 @@ export async function getDocBySlug(slug: string[]): Promise<DocContent | null> {
       },
     },
     components: {
-      // Style inline code (code not inside pre)
-      code: ({ children, ...props }) => {
-        // Check if this is inline code (no data-language attribute from rehype-pretty-code)
-        const isInline = !("data-language" in props);
-
-        if (isInline) {
-          return (
-            <code
-              className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm"
-              {...props}
-            >
-              {children}
-            </code>
-          );
-        }
-
-        // Code blocks are handled by rehype-pretty-code
-        return <code {...props}>{children}</code>;
-      },
+      // Let CSS handle all code styling - see globals.css
     },
   });
 
