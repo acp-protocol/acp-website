@@ -37,6 +37,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ACP Protocol",
   description: "AI Context Protocol - A machine-readable context protocol for AI-assisted development",
+  icons: {
+    icon: "/Favicon.svg",
+  },
 };
 
 /**
