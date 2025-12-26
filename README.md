@@ -1,21 +1,29 @@
 # ACP Website
 
-Landing page, playground, and documentation for the [AI Context Protocol (ACP)](https://github.com/your-org/acp-spec) specification.
+Landing page and documentation for the [AI Context Protocol (ACP)](https://github.com/acp-protocol/acp-spec) specification.
+
+**Live site:** [https://acp-protocol.dev](https://acp-protocol.dev)
 
 ## Overview
 
 This repository contains the website for the ACP Protocol, providing:
 
 - **Landing Page** - Introduction to ACP Protocol and its benefits
-- **Documentation** - Comprehensive guides and reference documentation
-- **Playground** - Interactive examples for trying ACP annotations
+- **Documentation** - Comprehensive guides and reference documentation (Diataxis-organized)
+- **Schema Hosting** - JSON schemas for validation at `/schemas/v1/*.schema.json`
 
 ## Project Structure
 
 ```
 acp-website/
+├── acp-spec/                # Git submodule - specification & docs source
+│   ├── acp-docs/            # User documentation (Diataxis)
+│   ├── spec/                # Formal specification chapters
+│   └── schemas/             # JSON schemas
 ├── apps/
 │   └── web/                 # Next.js 16 web application
+│       ├── scripts/         # Build scripts (sync-docs.ts)
+│       └── content/docs/    # Generated MDX (gitignored)
 ├── packages/
 │   ├── ui/                  # shadcn/ui component library
 │   └── test-utils/          # Testing utilities
@@ -26,6 +34,16 @@ acp-website/
     └── typescript/          # TypeScript configuration
 ```
 
+## Documentation System
+
+Documentation is sourced from the `acp-spec` submodule and converted to MDX at build time:
+
+- **Source**: `acp-spec/acp-docs/` (Markdown, Diataxis-organized)
+- **Conversion**: `apps/web/scripts/sync-docs.ts` runs during build
+- **Output**: `apps/web/content/docs/` (MDX with frontmatter, gitignored)
+
+The build also copies JSON schemas to `public/schemas/v1/` for direct URL access.
+
 ## Technology Stack
 
 | Layer           | Technology         | Purpose                           |
@@ -35,21 +53,21 @@ acp-website/
 | Framework       | Next.js 16         | React framework with App Router   |
 | Styling         | Tailwind CSS 4     | Utility-first CSS                 |
 | UI Components   | shadcn/ui          | Accessible, composable components |
-| Type Safety     | TypeScript 5.9     | Static type checking              |
-| Testing         | Vitest, Playwright | Unit and E2E testing              |
+| Type Safety     | TypeScript 5       | Static type checking              |
+| Deployment      | Vercel             | Hosting and CI/CD                 |
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Node.js** >= 25.0.0
+- **Node.js** >= 22.0.0
 - **pnpm** >= 10.24.0
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-org/acp-website.git
+# Clone the repository with submodules
+git clone --recurse-submodules https://github.com/acp-protocol/acp-website.git
 cd acp-website
 
 # Install dependencies
@@ -61,68 +79,47 @@ pnpm dev
 
 The web application will be available at `http://localhost:3000`.
 
+### If you already cloned without submodules
+
+```bash
+git submodule update --init --recursive
+```
+
 ## Development
 
 ### Available Scripts
 
-| Command           | Description                       |
-|-------------------|-----------------------------------|
-| `pnpm dev`        | Start development server          |
-| `pnpm dev:web`    | Start web app only                |
-| `pnpm build`      | Build all packages                |
-| `pnpm typecheck`  | Run TypeScript type checking      |
-| `pnpm lint`       | Run ESLint                        |
-| `pnpm test`       | Run unit tests                    |
-| `pnpm format`     | Format code with Prettier         |
+| Command           | Description                              |
+|-------------------|------------------------------------------|
+| `pnpm dev`        | Start development server                 |
+| `pnpm build`      | Build all packages (syncs docs first)    |
+| `pnpm sync-docs`  | Manually sync docs from acp-spec         |
+| `pnpm typecheck`  | Run TypeScript type checking             |
+| `pnpm lint`       | Run ESLint                               |
+| `pnpm format`     | Format code with Prettier                |
 
-### Running Specific Packages
+### Updating Documentation
 
-```bash
-# Web app only
-pnpm --filter @acp-website/web dev
+Documentation content lives in the `acp-spec` repository. To update:
 
-# UI package tests
-pnpm --filter @acp-website/ui test
+1. Make changes in `acp-spec/acp-docs/`
+2. Commit and push changes in the submodule
+3. Update the submodule reference: `git add acp-spec && git commit`
+4. Push to trigger rebuild
 
-# Build specific package
-pnpm --filter @acp-website/ui build
-```
+## Deployment
 
-### Adding UI Components
+The site deploys automatically to Vercel on push to `main`. The GitHub Actions workflow:
 
-The UI package uses shadcn/ui. Add components with:
+1. Initializes submodules
+2. Runs TypeScript and lint checks
+3. Builds and deploys to Vercel
 
-```bash
-cd packages/ui
-pnpm ui:add button dialog card
-```
-
-## Packages
-
-### `@acp-website/web`
-
-Next.js 16 web application serving the ACP Protocol website.
-
-### `@acp-website/ui`
-
-Reusable UI components built with shadcn/ui and Tailwind CSS.
-
-```tsx
-import { Button } from "@acp-website/ui/components";
-import { cn } from "@acp-website/ui/lib/utils";
-
-<Button variant="outline" className={cn("custom-class")}>
-  Get Started
-</Button>
-```
-
-### `@acp-website/test-utils`
-
-Testing utilities for Vitest including Testing Library setup.
+Preview deployments are created for pull requests.
 
 ## Related Projects
 
-- [ACP Specification](https://github.com/your-org/acp-spec) - The ACP Protocol specification
+- [ACP Specification](https://github.com/acp-protocol/acp-spec) - The ACP Protocol specification and documentation source
 
 ## License
 
