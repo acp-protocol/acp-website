@@ -42,13 +42,12 @@ interface CommonControlledStateProps<T> {
  * @param props.onChange - Callback fired when state changes
  * @returns Tuple of [currentValue, setState] similar to React.useState
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 /**
  * @acp:lock normal
  * @acp:summary "Uses controlled state"
  * @acp:summary "Uses controlled state"
  */
-export function useControlledState<T, Rest extends any[] = []>(
+export function useControlledState<T, Rest extends unknown[] = []>(
   props: CommonControlledStateProps<T> & {
     onChange?: (value: T, ...args: Rest) => void;
   }
