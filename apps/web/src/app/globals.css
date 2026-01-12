@@ -11,7 +11,7 @@
 
 /* Inline code styling (code NOT inside a code block) */
 :not(pre) > code {
-  background-color: hsl(var(--muted));
+  background-color: var(--muted);
   border-radius: 0.25rem;
   padding: 0.125rem 0.375rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
