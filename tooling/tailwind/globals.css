@@ -287,57 +287,55 @@
   /* Border radius */
   --radius: 0.625rem;
 
-  /* Base colors - Light mode with dark text */
+  /* Base colors - Light mode with dark text (using hsl for gradient compatibility) */
   --background: transparent;
-  --foreground: oklch(0.15 0 0); /* Near black - dark text for light mode */
+  --foreground: hsl(0 0% 10%); /* Near black - dark text for light mode */
   --card: transparent;
-  --card-foreground: oklch(0.15 0 0); /* Near black - dark text */
+  --card-foreground: hsl(0 0% 10%); /* Near black - dark text */
   --popover: transparent;
-  --popover-foreground: oklch(0.15 0 0); /* Near black - dark text */
+  --popover-foreground: hsl(0 0% 10%); /* Near black - dark text */
 
-  /* Primary colors - Light mode */
-  --primary: oklch(0.5 0.2 250); /* Blue */
-  --primary-foreground: oklch(0.98 0 0); /* White text on primary */
+  /* Primary colors - Light mode (purple/violet like acp.css theme) */
+  --primary: hsl(262 83% 58%); /* Purple - matches acp.css */
+  --primary-foreground: hsl(0 0% 100%); /* White text on primary */
 
   /* Secondary colors - Light mode */
-  --secondary: oklch(0.96 0 0); /* Very light gray */
-  --secondary-foreground: oklch(0.15 0 0); /* Dark text */
+  --secondary: hsl(240 5% 96%); /* Very light gray */
+  --secondary-foreground: hsl(240 6% 10%); /* Dark text */
 
   /* Muted colors - Light mode */
-  --muted: oklch(
-    0.85 0 0
-  ); /* Dark gray - darker shade to avoid glass effect override */
-  --muted-foreground: oklch(0.1 0 0); /* Medium gray text */
+  --muted: hsl(240 5% 96%); /* Light gray */
+  --muted-foreground: hsl(240 4% 46%); /* Medium gray text */
 
   /* Accent colors - Light mode */
-  --accent: oklch(0.96 0 0); /* Very light gray */
-  --accent-foreground: oklch(0.15 0 0); /* Dark text */
+  --accent: hsl(262 80% 96%); /* Very light purple */
+  --accent-foreground: hsl(262 83% 45%); /* Dark purple text */
 
   /* Destructive colors - WCAG AA compliant (4.5:1 contrast) */
-  --destructive: oklch(0.55 0.22 25); /* Red - 4.5:1 with white */
-  --destructive-foreground: oklch(0.98 0 0); /* White text on red */
+  --destructive: hsl(0 84% 60%); /* Red - 4.5:1 with white */
+  --destructive-foreground: hsl(0 0% 100%); /* White text on red */
 
   /* Border and input - WCAG AA compliant (3:1 for UI components) */
-  --border: oklch(0.88 0 0); /* Light gray - 3:1 contrast */
-  --input: oklch(0.88 0 0); /* Light gray - 3:1 contrast */
-  --ring: oklch(0.5 0.2 250); /* Blue ring - 3:1 contrast */
+  --border: hsl(240 6% 90%); /* Light gray - 3:1 contrast */
+  --input: hsl(240 6% 90%); /* Light gray - 3:1 contrast */
+  --ring: hsl(262 83% 58%); /* Purple ring - matches primary */
 
   /* Chart colors - WCAG AA compliant */
-  --chart-1: oklch(0.6 0.2 250); /* Blue */
-  --chart-2: oklch(0.55 0.15 150); /* Green */
-  --chart-3: oklch(0.5 0.2 50); /* Yellow */
-  --chart-4: oklch(0.65 0.2 300); /* Purple */
-  --chart-5: oklch(0.6 0.2 20); /* Orange */
+  --chart-1: hsl(220 70% 50%); /* Blue */
+  --chart-2: hsl(160 60% 45%); /* Green */
+  --chart-3: hsl(30 80% 55%); /* Orange */
+  --chart-4: hsl(280 65% 60%); /* Purple */
+  --chart-5: hsl(10 75% 55%); /* Red-orange */
 
   /* Sidebar colors - Light mode */
-  --sidebar: oklch(0.98 0 0); /* Near white */
-  --sidebar-foreground: oklch(0.15 0 0); /* Dark text */
-  --sidebar-primary: oklch(0.5 0.2 250); /* Blue */
-  --sidebar-primary-foreground: oklch(0.98 0 0); /* White text on primary */
-  --sidebar-accent: oklch(0.96 0 0); /* Very light gray */
-  --sidebar-accent-foreground: oklch(0.15 0 0); /* Dark text */
-  --sidebar-border: oklch(0.88 0 0); /* Light gray - 3:1 contrast */
-  --sidebar-ring: oklch(0.5 0.2 250); /* Blue ring - 3:1 contrast */
+  --sidebar: hsl(0 0% 98%); /* Near white */
+  --sidebar-foreground: hsl(240 10% 10%); /* Dark text */
+  --sidebar-primary: hsl(262 83% 58%); /* Purple */
+  --sidebar-primary-foreground: hsl(0 0% 100%); /* White text on primary */
+  --sidebar-accent: hsl(240 5% 96%); /* Very light gray */
+  --sidebar-accent-foreground: hsl(240 6% 10%); /* Dark text */
+  --sidebar-border: hsl(240 6% 90%); /* Light gray - 3:1 contrast */
+  --sidebar-ring: hsl(262 83% 58%); /* Purple ring - matches primary */
 
   /* Apple-standard glassmorphism - Very subtle and refined */
   /* Low opacity for Apple's standard glass effect */
@@ -492,59 +490,55 @@
   --glass-crystal-shadow-hover:
     0 0 25px rgba(0, 0, 0, 0.5), 0 0 35px rgba(255, 255, 255, 0.2);
 
-  /* Base colors - Apple-style white text */
+  /* Base colors - Dark mode (using hsl for gradient compatibility) */
   --background: transparent;
-  --foreground: oklch(1 0 0); /* White - Apple-style */
+  --foreground: hsl(0 0% 95%); /* Near white */
   --card: transparent;
-  --card-foreground: oklch(1 0 0); /* White - Apple-style */
+  --card-foreground: hsl(0 0% 95%); /* Near white */
   --popover: transparent;
-  --popover-foreground: oklch(1 0 0); /* White - Apple-style */
+  --popover-foreground: hsl(0 0% 95%); /* Near white */
 
-  /* Primary colors - Apple-style white text */
-  --primary: oklch(0.7 0.15 250); /* Light blue */
-  --primary-foreground: oklch(1 0 0); /* White - Apple-style */
+  /* Primary colors - Brighter purple for dark mode */
+  --primary: hsl(262 83% 65%); /* Brighter purple - matches acp.css dark mode */
+  --primary-foreground: hsl(0 0% 100%); /* White */
 
-  /* Secondary colors - Apple-style white text */
-  --secondary: oklch(0.25 0 0); /* Dark gray */
-  --secondary-foreground: oklch(1 0 0); /* White - Apple-style */
+  /* Secondary colors - Dark mode */
+  --secondary: hsl(230 20% 18%); /* Dark gray with blue tint */
+  --secondary-foreground: hsl(0 0% 95%); /* Near white */
 
-  /* Muted colors - Apple-style white text */
-  --muted: oklch(
-    0.18 0 0
-  ); /* Darker gray - darker shade to avoid glass effect override */
-  --muted-foreground: oklch(1 0 0); /* White - Apple-style */
+  /* Muted colors - Dark mode */
+  --muted: hsl(230 15% 20%); /* Dark gray */
+  --muted-foreground: hsl(240 5% 65%); /* Medium gray */
 
-  /* Accent colors - Apple-style white text */
-  --accent: oklch(0.25 0 0); /* Dark gray */
-  --accent-foreground: oklch(1 0 0); /* White - Apple-style */
+  /* Accent colors - Dark mode */
+  --accent: hsl(262 30% 20%); /* Dark purple */
+  --accent-foreground: hsl(262 80% 75%); /* Light purple */
 
   /* Destructive colors - WCAG AA compliant (4.5:1 contrast) */
-  --destructive: oklch(
-    0.65 0.22 25
-  ); /* Light red - 4.5:1 with dark background */
-  --destructive-foreground: oklch(0.12 0 0); /* Near black text on red */
+  --destructive: hsl(0 62% 50%); /* Red - matches acp.css dark mode */
+  --destructive-foreground: hsl(0 0% 100%); /* White text on red */
 
   /* Border and input - WCAG AA compliant (3:1 for UI components) */
-  --border: oklch(0.3 0 0); /* Medium gray - 3:1 contrast */
-  --input: oklch(0.25 0 0); /* Dark gray - 3:1 contrast */
-  --ring: oklch(0.6 0.2 250); /* Light blue ring - 3:1 contrast */
+  --border: hsl(230 15% 20%); /* Dark gray - 3:1 contrast */
+  --input: hsl(230 15% 20%); /* Dark gray - 3:1 contrast */
+  --ring: hsl(262 83% 65%); /* Purple ring - matches primary */
 
   /* Chart colors - WCAG AA compliant */
-  --chart-1: oklch(0.65 0.2 250); /* Light blue */
-  --chart-2: oklch(0.7 0.15 150); /* Light green */
-  --chart-3: oklch(0.75 0.2 50); /* Light yellow */
-  --chart-4: oklch(0.7 0.2 300); /* Light purple */
-  --chart-5: oklch(0.68 0.2 20); /* Light orange */
+  --chart-1: hsl(220 70% 60%); /* Light blue */
+  --chart-2: hsl(160 55% 55%); /* Light green */
+  --chart-3: hsl(40 80% 60%); /* Light yellow-orange */
+  --chart-4: hsl(280 60% 65%); /* Light purple */
+  --chart-5: hsl(15 75% 60%); /* Light orange */
 
-  /* Sidebar colors - Apple-style white text */
-  --sidebar: oklch(0.18 0 0); /* Dark gray */
-  --sidebar-foreground: oklch(1 0 0); /* White - Apple-style */
-  --sidebar-primary: oklch(0.7 0.15 250); /* Light blue */
-  --sidebar-primary-foreground: oklch(1 0 0); /* White - Apple-style */
-  --sidebar-accent: oklch(0.25 0 0); /* Dark gray */
-  --sidebar-accent-foreground: oklch(1 0 0); /* White - Apple-style */
-  --sidebar-border: oklch(0.3 0 0); /* Medium gray - 3:1 contrast */
-  --sidebar-ring: oklch(0.6 0.2 250); /* Light blue ring - 3:1 contrast */
+  /* Sidebar colors - Dark mode */
+  --sidebar: hsl(230 25% 12%); /* Dark gray with blue tint */
+  --sidebar-foreground: hsl(0 0% 95%); /* Near white */
+  --sidebar-primary: hsl(262 83% 65%); /* Brighter purple */
+  --sidebar-primary-foreground: hsl(0 0% 100%); /* White */
+  --sidebar-accent: hsl(230 20% 18%); /* Dark gray */
+  --sidebar-accent-foreground: hsl(0 0% 95%); /* Near white */
+  --sidebar-border: hsl(230 15% 20%); /* Dark gray - 3:1 contrast */
+  --sidebar-ring: hsl(262 83% 65%); /* Purple ring - matches primary */
 }
 
 /* ============================================================================
