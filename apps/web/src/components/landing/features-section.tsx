@@ -54,8 +54,14 @@ export function FeaturesSection() {
               className="relative bg-card rounded-xl shadow-[inset_0px_0px_0.5px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.08)] dark:shadow-[inset_0px_0px_0.5px_1px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.3)] border border-border/50"
             >
               <CardHeader>
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <feature.icon className="h-6 w-6 text-primary" />
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10"
+                  style={{ backgroundColor: "rgba(124, 58, 237, 0.1)" }}
+                >
+                  <feature.icon
+                    className="h-6 w-6 text-primary"
+                    style={{ color: "#7c3aed" }}
+                  />
                 </div>
                 <CardTitle className="text-xl">{feature.title}</CardTitle>
               </CardHeader>
