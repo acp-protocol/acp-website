@@ -18,6 +18,12 @@
   font-size: 0.875rem;
 }
 
+/* Remove backticks added by Tailwind typography prose plugin */
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none !important;
+}
+
 /* rehype-pretty-code styles */
 [data-rehype-pretty-code-figure] {
   margin: 1rem 0;
